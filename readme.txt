@@ -32,6 +32,10 @@ Not yet
 
 == Changelog ==
 
+= 1.0.1 =
+* 26 jun 2012
+* 3 l10n fixes
+
 = 1.0 =
 * 18 jun 2012
 * First release

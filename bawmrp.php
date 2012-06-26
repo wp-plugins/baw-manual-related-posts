@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.0
+Version: 1.0.1
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -35,7 +35,7 @@ function bawmrp_box( $post )
 		<input class="hide-if-js" type="text" name="post_ids" id="post_ids" value="<?php echo esc_attr( $related_post_ids ); ?>" />&nbsp;&nbsp;
 		<?php wp_nonce_field( 'add-relastedpostsids_' . $post->ID, '_wpnonce_yyarpp' ); ?>
 		<div>
-			<a href="javascript:void(0);" onclick="findPosts.open( 'from_post','<?php echo $post->ID; ?>' ); return false;" class="button-primary hide-if-no-js"><?php _e( 'Add a related post' ); ?></a>
+			<a href="javascript:void(0);" onclick="findPosts.open( 'from_post','<?php echo $post->ID; ?>' ); return false;" class="button-primary hide-if-no-js"><?php _e( 'Add a related post', 'bawmrp' ); ?></a>
 			<span class="hide-if-js"><?php _e( 'Add posts IDs from posts you want to relate, comma separated.'); ?></span>
 		</div>
 		<ul id="ul_yyarpp" class="tagchecklist">
@@ -131,7 +131,7 @@ add_action( 'admin_menu', 'bawmrp_create_menu' );
 function bawmrp_activation()
 {
 	add_option( 'bawmrp', array(	'post_types' => array( 'post' ),
-									'head_title' => __( 'You may also like:' ),
+									'head_title' => __( 'You may also like:', 'bawmrp' ),
 									'in_content' => "on"
 								) );
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 23:09+0100\n"
+"POT-Creation-Date: 2012-06-26 15:39+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -14,45 +14,45 @@ msgstr ""
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: c:\\Users\\Julio\\Dropbox\\BAW\\plugins\\baw-manual-related-posts\n"
+"X-Poedit-SearchPath-0: c:\\Users\\Julio\\Dropbox\\BAW\\plugins\\baw-manual-related-posts_repo\\trunk\n"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:38
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:38
 msgid "Add a related post"
 msgstr "Ajouter un article relatif"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:39
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:39
 msgid "Add posts IDs from posts you want to relate, comma separated."
 msgstr "Ajouter les IDs des articles que vous souhaitez relier, séparés par des virgules."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:119
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:119
 msgid "Settings"
 msgstr "Réglages"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:134
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:134
 msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:149
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:149
 msgid "General"
 msgstr "Général"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:150
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:150
 msgid "Display related posts in post content"
 msgstr "Afficher les articles relatifs dans le contenu de l'article"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:151
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:151
 msgid "Head title for front-end (if previous checkbox is checked)"
 msgstr "Title de l'entête pour le front-end (si la case précédente est cochée)"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:152
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:152
 msgid "Select post types"
-msgstr "Selection des types de posts"
+msgstr "Selection des types de contenu"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:153
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:153
 msgid "About"
 msgstr "A propos"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts/bawmrp.php:182
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:182
 msgid "Will be displayed at bottom of content."
 msgstr "Sera affiché sous le contenu."
 
