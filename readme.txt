@@ -32,6 +32,10 @@ Not yet
 
 == Changelog ==
 
+= 1.0.2 =
+* 29 jun 2012
+* Fix a huge bug if you're using meta fields in the same time of the related posts box. Thanks to @poupougnac ;)
+
 = 1.0.1 =
 * 26 jun 2012
 * 3 l10n fixes
