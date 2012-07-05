@@ -3,7 +3,7 @@ Contributors: juliobox
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
 Tags: related post, link post, relation, yarpp
 Requires at least: 3.3.2
-Tested up to: 3.4
+Tested up to: 3.4.1
 Stable tag: trunk
 
 Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
@@ -31,6 +31,12 @@ Not yet
 1. Front-end view (french)
 
 == Changelog ==
+
+= 1.1 =
+* 06 jul 2012
+* Front end view only displayed for singular posts (not on cat, tag, post list pages)
+* Delete the head title but ...
+* Add a head title for each post type!
 
 = 1.0.3 =
 * 02 jul 2012

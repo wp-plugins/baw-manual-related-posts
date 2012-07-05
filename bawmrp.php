@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.0.3
+Version: 1.1
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -133,13 +133,12 @@ add_action( 'admin_menu', 'bawmrp_create_menu' );
 function bawmrp_activation()
 {
 	add_option( 'bawmrp', array(	'post_types' => array( 'post' ),
-									'head_title' => __( 'You may also like:', 'bawmrp' ),
-									'in_content' => "on"
+									'in_content' => 'on'
 								) );
 }
 register_activation_hook( __FILE__, 'bawmrp_activation' );
 
-function bawpvc_uninstaller()
+function bawmrp_uninstaller()
 {
 	delete_option( 'bawmrp' );
 }
@@ -150,7 +149,6 @@ function bawmrp_settings_page()
 	settings_errors();
 	add_settings_section( 'bawmrp_settings_page', __( 'General', 'bawmrp' ), '__return_null', 'bawmrp_settings' );
 	add_settings_field( 'bawmrp_field_in_content', __( 'Display related posts in post content', 'bawmrp' ), 'bawmrp_field_in_content', 'bawmrp_settings', 'bawmrp_settings_page' );
-	add_settings_field( 'bawmrp_field_headtitle', __( 'Head title for front-end (if previous checkbox is checked)', 'bawmrp' ), 'bawmrp_field_headtitle', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_post_types', __( 'Select post types', 'bawmrp' ), 'bawmrp_field_post_types', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_null', 'bawmrp_settings2' );
 	add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.php' );" ), 'bawmrp_settings2', 'bawmrp_settings_page' );
@@ -173,8 +171,11 @@ function bawmrp_field_post_types()
 {
 	global $bawmrp_options;
 	$bawmrp_options['post_types'] = !empty( $bawmrp_options['post_types'] ) ? $bawmrp_options['post_types'] : array();
-	foreach( get_post_types( array( 'public'=>true, 'show_ui'=>true ), 'objects' ) as $cpt )
-		echo '<label><input type="checkbox" '.checked( in_array( $cpt->name, $bawmrp_options['post_types'] ) ? 'on' : '', 'on', false ).' name="bawmrp[post_types][]" value="'.esc_attr( $cpt->name ).'" /> '.esc_html( $cpt->label ).'</label><br />';
+	foreach( get_post_types( array( 'public'=>true, 'show_ui'=>true ), 'objects' ) as $cpt ):
+		$bawmrp_options['head_titles'][$cpt->name] = isset( $bawmrp_options['head_titles'][$cpt->name] ) ? $bawmrp_options['head_titles'][$cpt->name] : __( 'You may also like:', 'bawmrp' );
+		echo '<label><input type="checkbox" '.checked( in_array( $cpt->name, $bawmrp_options['post_types'] ) ? 'on' : '', 'on', false ).' name="bawmrp[post_types][]" value="'.esc_attr( $cpt->name ).'" /> '.esc_html( $cpt->label ).'</label><br />' .
+			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . sprintf( __( 'Front-end title for %s:', 'bawmrp' ), strtolower( esc_html( $cpt->label ) ) ) . ' <input type="text" size="40" name="bawmrp[head_titles][' . esc_attr( $cpt->name ) . ']" value="' . esc_attr( $bawmrp_options['head_titles'][$cpt->name] ) . '" /><br />';
+	endforeach;
 }
 
 function bawmrp_field_in_content()
@@ -185,28 +186,22 @@ function bawmrp_field_in_content()
 <?php
 }
 
-function bawmrp_field_headtitle()
-{
-	global $bawmrp_options;
-?>
-	<input type="text" name="bawmrp[head_title]" size="40" value="<?php echo esc_attr( $bawmrp_options['head_title'] ); ?>" /></em>
-<?php
-}
-
 else:
 
 if( isset( $bawmrp_options['in_content'] ) && $bawmrp_options['in_content']=='on' ):
 function bawmrp_the_content( $content )
 {
 	global $post, $bawmrp_options;
-	if( in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
+	if( is_singular() && in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
 		$ids = get_post_meta( $post->ID, '_yyarpp', true );
 		if( !empty( $ids ) ):
 			$list = '';
 			$ids = explode( ',', $ids );
-			$head = '<div><h3>'.$bawmrp_options['head_title'].'</h3><ul>';
+			$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
+			$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
+			$head = '<div><h3>'.$head_title.'</h3><ul>';
 			foreach( $ids as $id )
-				$list .= '<li><a href="'.get_permalink( $id ).'">'.get_the_title( $id ).'</a></li>';
+				$list .= '<li><a href="' . apply_filters('the_permalink', get_permalink( $id ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 			$foot = '</ul></div>';
 			$final = $content . $head . $list . $foot;
 			$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );

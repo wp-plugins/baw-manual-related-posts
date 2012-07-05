@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-26 15:39+0100\n"
+"POT-Creation-Date: 2012-07-06 01:42+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -24,25 +24,17 @@ msgstr "Ajouter un article relatif"
 msgid "Add posts IDs from posts you want to relate, comma separated."
 msgstr "Ajouter les IDs des articles que vous souhaitez relier, séparés par des virgules."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:119
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:121
 msgid "Settings"
 msgstr "Réglages"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:134
-msgid "You may also like:"
-msgstr "Vous aimerez aussi :"
-
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:149
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:150
 msgid "General"
 msgstr "Général"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:150
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:151
 msgid "Display related posts in post content"
 msgstr "Afficher les articles relatifs dans le contenu de l'article"
-
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:151
-msgid "Head title for front-end (if previous checkbox is checked)"
-msgstr "Title de l'entête pour le front-end (si la case précédente est cochée)"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:152
 msgid "Select post types"
@@ -52,7 +44,20 @@ msgstr "Selection des types de contenu"
 msgid "About"
 msgstr "A propos"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:182
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:175
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:200
+msgid "You may also like:"
+msgstr "Vous aimerez aussi :"
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:177
+#, php-format
+msgid "Front-end title for %s:"
+msgstr "Titre sur le fron-end pour les %s :"
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:185
 msgid "Will be displayed at bottom of content."
 msgstr "Sera affiché sous le contenu."
 
+#~ msgid "Head title for front-end (if previous checkbox is checked)"
+#~ msgstr ""
+#~ "Title de l'entête pour le front-end (si la case précédente est cochée)"
