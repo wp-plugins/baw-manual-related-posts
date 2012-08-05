@@ -1,4 +1,4 @@
-=== BAW Manual Related Posts ===
+=== Manual Related Posts ===
 Contributors: juliobox
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
 Tags: related post, link post, relation, yarpp
@@ -31,6 +31,10 @@ Not yet
 1. Front-end view (french)
 
 == Changelog ==
+
+= 1.2 =
+* 06 aug 2012
+* Add an option to display on home page too.
 
 = 1.1 =
 * 06 jul 2012

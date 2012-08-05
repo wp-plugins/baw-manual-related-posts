@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.1
+Version: 1.2
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -133,7 +133,8 @@ add_action( 'admin_menu', 'bawmrp_create_menu' );
 function bawmrp_activation()
 {
 	add_option( 'bawmrp', array(	'post_types' => array( 'post' ),
-									'in_content' => 'on'
+									'in_content' => 'on',
+									'in_homepage' => ''
 								) );
 }
 register_activation_hook( __FILE__, 'bawmrp_activation' );
@@ -149,6 +150,7 @@ function bawmrp_settings_page()
 	settings_errors();
 	add_settings_section( 'bawmrp_settings_page', __( 'General', 'bawmrp' ), '__return_null', 'bawmrp_settings' );
 	add_settings_field( 'bawmrp_field_in_content', __( 'Display related posts in post content', 'bawmrp' ), 'bawmrp_field_in_content', 'bawmrp_settings', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_in_homepage', __( 'Display related posts in home page too', 'bawmrp' ), 'bawmrp_field_in_homepage', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_post_types', __( 'Select post types', 'bawmrp' ), 'bawmrp_field_post_types', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_null', 'bawmrp_settings2' );
 	add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.php' );" ), 'bawmrp_settings2', 'bawmrp_settings_page' );
@@ -186,13 +188,23 @@ function bawmrp_field_in_content()
 <?php
 }
 
+function bawmrp_field_in_homepage()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="checkbox" name="bawmrp[in_homepage]" <?php checked( $bawmrp_options['in_homepage'], 'on' ); ?> /> <em><?php _e( 'Will be displayed at bottom of content on home page.', 'bawmrp' ); ?></em></label>
+<?php
+}
+
 else:
 
 if( isset( $bawmrp_options['in_content'] ) && $bawmrp_options['in_content']=='on' ):
 function bawmrp_the_content( $content )
 {
 	global $post, $bawmrp_options;
-	if( is_singular() && in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
+	if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
+		  ( is_singular() ) )
+		&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
 		$ids = get_post_meta( $post->ID, '_yyarpp', true );
 		if( !empty( $ids ) ):
 			$list = '';
