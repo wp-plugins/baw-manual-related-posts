@@ -1,4 +1,4 @@
-=== Manual Related Posts ===
+﻿=== Manual Related Posts ===
 Contributors: juliobox
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
 Tags: related post, link post, relation, yarpp
@@ -34,7 +34,7 @@ Not yet
 
 = 1.2.1 =
 * 21 sep 2012
-* Hungarian translation added, thanks to Tibor Tak�cs (tyborg@tyborg.hu)
+* Hungarian translation added, thanks to Tibor Takács (tyborg@tyborg.hu)
 
 = 1.2 =
 * 06 aug 2012
