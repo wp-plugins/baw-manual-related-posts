@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BAW Manual Related Posts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-21 14:18+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Tibor Takács <tyborg@tyborg.hu>\n"
+"Language-Team: Tibor Takács <tyborg@tyborg.hu>\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n;esc_attr_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.3\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../bawmrp.php:38
+msgid "Add a related post"
+msgstr "Hozzáadás"
+
+#: ../bawmrp.php:39
+msgid "Add posts IDs from posts you want to relate, comma separated."
+msgstr "Kapcsolódó bejegyzés ID-k hozzáadása, vesszővel elválasztva."
+
+#: ../bawmrp.php:121
+msgid "Settings"
+msgstr "Beállítások"
+
+#: ../bawmrp.php:151
+msgid "General"
+msgstr "Általános"
+
+#: ../bawmrp.php:152
+msgid "Display related posts in post content"
+msgstr "Kapcsolódó cikkek megjelenítése a bejegyzésben"
+
+#: ../bawmrp.php:153
+msgid "Display related posts in home page too"
+msgstr "Kapcsolódó cikkek megjelenítése a honlapon is"
+
+#: ../bawmrp.php:154
+msgid "Select post types"
+msgstr "Bejegyzés típusok kiválasztása"
+
+#: ../bawmrp.php:155
+msgid "About"
+msgstr "Névjegy"
+
+#: ../bawmrp.php:177 ../bawmrp.php:212
+msgid "You may also like:"
+msgstr "Kedvelheted ezt is:"
+
+#: ../bawmrp.php:179
+#, php-format
+msgid "Front-end title for %s:"
+msgstr "Megjeleníthető felírat %s esetén:"
+
+#: ../bawmrp.php:187
+msgid "Will be displayed at bottom of content."
+msgstr "A tartalom alján lesz megjelenítve."
+
+#: ../bawmrp.php:195
+msgid "Will be displayed at bottom of content on home page."
+msgstr "A tartalom alján lesz megjelenítve a honlapon."
+
+#~ msgid "Head title for front-end (if previous checkbox is checked)"
+#~ msgstr ""
+#~ "Title de l'entête pour le front-end (si la case précédente est cochée)"

@@ -9,7 +9,7 @@ Stable tag: trunk
 Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
 
 == Description ==
-You can manually choose which posts will be linked to every posts, out auto selection, out random selection, out fake smart selection. Just click "Add related posts", search for post my title/content, click, add. Done, post linked ! FEAR ME YARPP ^^ (FR/EN, NOJS supported)
+You can manually choose which posts will be linked to every posts, out auto selection, out random selection, out fake smart selection. Just click "Add related posts", search for post my title/content, click, add. Done, post linked ! (FR/EN/HU, NOJS supported)
 
 == Installation ==
 
@@ -31,6 +31,10 @@ Not yet
 1. Front-end view (french)
 
 == Changelog ==
+
+= 1.2.1 =
+* 21 sep 2012
+* Hungarian translation added, thanks to Tibor Takács (tyborg@tyborg.hu)
 
 = 1.2 =
 * 06 aug 2012
