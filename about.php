@@ -1,4 +1,4 @@
-<?php // 060812
+<?php // 130812
 if ( !defined( 'ABSPATH' ) )
 	die ( 'Please do not access this file directly. Thanks!' );
 ?>
@@ -24,6 +24,7 @@ if ( !defined( 'ABSPATH' ) )
 	<h3 class="hndle" style="padding:5px;"><span>Check this plugins too</span></h3>
 	<div class="inside">
 		<ul>
+			<li><a href="http://baw.li/anticsrf">BAW Anti CSRF</a> - <em>Protect your back-end from bad crafted plugin and avoid CSRF vulnerabilities!</em></li>
 			<li><a href="http://baw.li/mpp">BAW Multiple Passwords for Protected Pages</a> - <em>Add more than 1 password for your protected pages, and 2 bonus!</em></li>
 			<li><a href="http://baw.li/ggi">BAW Gravatar Google Image</a> - <em>Add Google Image for default Gravatar photos, use local avatar cache system, and bonus!</em></li>
 			<li><a href="http://baw.li/pvc">BAW Post Views Count</a> - <em>Count views on your posts, pages, CPT. Widget, shortcode included. More than 5000 DL!</em></li>
