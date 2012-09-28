@@ -19,7 +19,12 @@ You can manually choose which posts will be linked to every posts, out auto sele
 
 == Frequently Asked Questions ==
 
-Not yet
+1. Is there some fiters ?
+Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
+
+1. Is there any shortcode ?
+Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
+`<?php echo do_shortcode( '[manual_related_posts]' ) ; ?>` or add directly in any post/page [manual_related_posts]
 
 == Screenshots ==
 
@@ -28,9 +33,17 @@ Not yet
 1. Search for a word "Bonjour", and you'll get (with ajax) all posts from selected post type (ajax from WP core!)
 1. Select it, linked!
 1. NOJS view
-1. Front-end view (french)
+1. Front-end list view (french demo)
+1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.3 =
+* 28 sep 2012
+* Added : New option, you can choose LIST or THUMB mode for displaying the related posts.
+* Added : CSS class on my div "bawmrp" if you need more customization.
+* Added : New filter on LI style "bawmrp_li_style", you can hack my style!
+* Added : Shortcode to use it everywhere you need "bawmrp" or "manual_related_posts" (no params)
 
 = 1.2.1 =
 * 21 sep 2012

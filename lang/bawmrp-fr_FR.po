@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-06 01:06+0100\n"
+"POT-Creation-Date: 2012-09-28 10:58+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -37,32 +37,45 @@ msgid "Display related posts in post content"
 msgstr "Afficher les articles relatifs dans le contenu de l'article"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:153
+msgid "Display mode"
+msgstr "Mode d'affichage"
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:154
 msgid "Display related posts in home page too"
 msgstr "Afficher les articles relatifs sur la page d'accueil aussi"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:154
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:155
 msgid "Select post types"
 msgstr "Selection des types de contenu"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:155
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:156
 msgid "About"
 msgstr "A propos"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:177
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:212
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:178
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:226
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:249
 msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:179
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:180
 #, php-format
 msgid "Front-end title for %s:"
 msgstr "Titre sur le fron-end pour les %s :"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:187
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:188
 msgid "Will be displayed at bottom of content."
 msgstr "Sera affiché sous le contenu."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:195
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:197
+msgid "List mode."
+msgstr "Mode en liste."
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:198
+msgid "Thumb mode."
+msgstr "Mode en miniatures."
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:206
 msgid "Will be displayed at bottom of content on home page."
 msgstr "Sera affiché sous le contenu sur la page d'accueil (Home Page)."
 
