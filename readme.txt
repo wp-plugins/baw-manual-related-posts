@@ -38,6 +38,10 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.3.1 =
+* 02 oct 2012
+* Fix a bug related to new shortcodes, worked only when "display at bottom of content" was checked. Thanks to Wido pointing me this.
+
 = 1.3 =
 * 28 sep 2012
 * Added : New option, you can choose LIST or THUMB mode for displaying the related posts.

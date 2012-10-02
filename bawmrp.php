@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.3
+Version: 1.3.1
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -210,63 +210,59 @@ function bawmrp_field_in_homepage()
 
 else:
 
-if( isset( $bawmrp_options['in_content'] ) && $bawmrp_options['in_content']=='on' ):
-
+if( isset( $bawmrp_options['in_content'] ) && $bawmrp_options['in_content']=='on' )
 	add_filter( 'the_content', 'bawmrp_the_content' );
-	if( !isset( $bawmrp_options['in_content_mode'] ) || $bawmrp_options['in_content_mode']=='list' ): // LIST mode
-		function bawmrp_the_content( $content )
-		{
-			global $post, $bawmrp_options;
-			if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
-				  ( is_singular() ) )
-				&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
-				$ids = get_post_meta( $post->ID, '_yyarpp', true );
-				if( !empty( $ids ) ):
-					$list = '';
-					$ids = explode( ',', $ids );
-					$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
-					$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
-					$head = '<div class="bawmrp"><h3>'.$head_title.'</h3><ul>';
-					foreach( $ids as $id )
-						$list .= '<li><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
-					$foot = '</ul></div>';
-					$final = $content . $head . $list . $foot;
-					$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
-				endif;
-			endif;
-			return $content;
-		}
-	else: // THUMB mode
-		function bawmrp_the_content( $content )
-		{
-			global $post, $bawmrp_options;
-			if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
-				  ( is_singular() ) )
-				&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
-				$ids = get_post_meta( $post->ID, '_yyarpp', true );
-				if( !empty( $ids ) ):
-					$list = '';
-					$ids = explode( ',', $ids );
-					$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
-					$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
-					$head = '<div class="mrp_div"><h3>'.$head_title.'</h3><ul>';
-					$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:180px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
-					foreach( $ids as $id ):
-						$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, array( 100, 100 ) ) : '<img src="' . admin_url( '/images/wp-badge.png' ) . '" height="100" width="100" />';
-						$list .= '<li style="' . $style . '"><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
-					endforeach;
-					$foot = '</ul></div><div style="clear:both;"></div>';
-					$final = $content . $head . $list . $foot;
-					$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
-				endif;
-			endif;
-			return $content;
-		}
 
-	endif;
-	
+if( !isset( $bawmrp_options['in_content_mode'] ) || $bawmrp_options['in_content_mode']=='list' ): // LIST mode
+	function bawmrp_the_content( $content )
+	{
+		global $post, $bawmrp_options;
+		if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
+			  ( is_singular() ) )
+			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
+			$ids = get_post_meta( $post->ID, '_yyarpp', true );
+			if( !empty( $ids ) ):
+				$list = '';
+				$ids = explode( ',', $ids );
+				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
+				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
+				$head = '<div class="bawmrp"><h3>'.$head_title.'</h3><ul>';
+				foreach( $ids as $id )
+					$list .= '<li><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+				$foot = '</ul></div>';
+				$final = $content . $head . $list . $foot;
+				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
+			endif;
+		endif;
+		return $content;
+	}
+else: // THUMB mode
+	function bawmrp_the_content( $content )
+	{
+		global $post, $bawmrp_options;
+		if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
+			  ( is_singular() ) )
+			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
+			$ids = get_post_meta( $post->ID, '_yyarpp', true );
+			if( !empty( $ids ) ):
+				$list = '';
+				$ids = explode( ',', $ids );
+				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
+				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
+				$head = '<div class="mrp_div"><h3>'.$head_title.'</h3><ul>';
+				$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:180px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
+				foreach( $ids as $id ):
+					$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, array( 100, 100 ) ) : '<img src="' . admin_url( '/images/wp-badge.png' ) . '" height="100" width="100" />';
+					$list .= '<li style="' . $style . '"><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+				endforeach;
+				$foot = '</ul></div><div style="clear:both;"></div>';
+				$final = $content . $head . $list . $foot;
+				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
+			endif;
+		endif;
+		return $content;
+	}
 endif;
-
 add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
 add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 
