@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-28 10:58+0100\n"
+"POT-Creation-Date: 2012-10-12 15:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -16,66 +16,70 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: c:\\Users\\Julio\\Dropbox\\BAW\\plugins\\baw-manual-related-posts_repo\\trunk\n"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:38
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:43
 msgid "Add a related post"
 msgstr "Ajouter un article relatif"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:39
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:44
+msgid "Clear all"
+msgstr "Effacer tout"
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:45
 msgid "Add posts IDs from posts you want to relate, comma separated."
 msgstr "Ajouter les IDs des articles que vous souhaitez relier, séparés par des virgules."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:121
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:220
 msgid "Settings"
 msgstr "Réglages"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:151
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:250
 msgid "General"
 msgstr "Général"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:152
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:251
 msgid "Display related posts in post content"
 msgstr "Afficher les articles relatifs dans le contenu de l'article"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:153
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:252
 msgid "Display mode"
 msgstr "Mode d'affichage"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:154
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:253
 msgid "Display related posts in home page too"
 msgstr "Afficher les articles relatifs sur la page d'accueil aussi"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:155
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:254
 msgid "Select post types"
 msgstr "Selection des types de contenu"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:156
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:255
 msgid "About"
 msgstr "A propos"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:178
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:226
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:249
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:277
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:326
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:349
 msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:180
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:279
 #, php-format
 msgid "Front-end title for %s:"
 msgstr "Titre sur le fron-end pour les %s :"
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:188
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:287
 msgid "Will be displayed at bottom of content."
 msgstr "Sera affiché sous le contenu."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:197
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:296
 msgid "List mode."
 msgstr "Mode en liste."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:198
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:298
 msgid "Thumb mode."
 msgstr "Mode en miniatures."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:206
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:306
 msgid "Will be displayed at bottom of content on home page."
 msgstr "Sera affiché sous le contenu sur la page d'accueil (Home Page)."
 

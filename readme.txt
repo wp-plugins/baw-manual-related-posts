@@ -33,10 +33,20 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 1. Search for a word "Bonjour", and you'll get (with ajax) all posts from selected post type (ajax from WP core!)
 1. Select it, linked!
 1. NOJS view
+1. Drag and Drop supported
 1. Front-end list view (french demo)
 1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.4 =
+* 12 oct 2012
+* First, i'll thank Fran Hrzenjak (@fhrzenjak) because he gave me 2 good ideas and he sent me them, coded! I just imporved them to match my work better ;) Thank you Fran
+* Added a drag and drop support to order related posts (see screenshot) (Fran idea)
+* Added checkbox instead of radiobox in results, yes you can choose more than 1 per 1 posts in results now! Already added posts are disabled no worry.
+* Added a "Clear all" button to clean related posts for a post.
+* Removed useless posts types in findPosts box (Fran idea)
+* New screenshots with WordPress 3.5 skin
 
 = 1.3.1 =
 * 02 oct 2012
