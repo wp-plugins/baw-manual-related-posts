@@ -39,6 +39,10 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.5.1 =
+* 15 oct 2012
+* Forgot to delete an echo test.
+
 = 1.5 =
 * 15 oct 2012
 * You can now, so ironic, add auto related tags if you want to fill old posts with related posts. Auto related are found by tags, cats or both.
