@@ -43,8 +43,12 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.6.2 =
+* 15 oct 2012
+* Warning fix
+
 = 1.6.1 =
-* 15 oct 2012 (again and again)
+* 15 oct 2012
 * Add 3 more filters/action, see FAQ
 
 = 1.6 =

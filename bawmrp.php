@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.6.1
+Version: 1.6.2
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -41,7 +41,7 @@ function bawmrp_get_related_posts_auto( $post )
 	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
 		$ids_sticky = get_option( 'sticky_posts' );
 		$ids_recent = $bawmrp_options[ 'recent_posts' ] == 'on' ? bawmrp_get_recent_posts( $post, true ) : array();
-		$ids = wp_parse_id_list( array_merge( explode( ',', $ids_manual ), $ids_sticky, $ids_recent ) );
+		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_sticky, $ids_recent ) );
 		$args = array(
 			'post_type' => $post->post_type,
 			'post_status' => 'publish',
@@ -86,7 +86,7 @@ function bawmrp_get_recent_posts( $post, $ignore_auto=false )
 	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
 		$ids_sticky = get_option( 'sticky_posts' );
 		$ids_auto = !$ignore_auto && $bawmrp_options[ 'auto_posts' ] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
-		$ids = wp_parse_id_list( array_merge( explode( ',', $ids_manual ), $ids_sticky, $ids_auto ) );
+		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_sticky, $ids_auto ) );
 		$args = array(
 			'post_type' => $post->post_type,
 			'post_status' => 'publish',
