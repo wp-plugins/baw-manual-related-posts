@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.5.1
+Version: 1.5.2
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -410,8 +410,7 @@ if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
 			  ( is_singular() ) )
 			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
 			$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
-			if( $bawmrp_options['auto_posts'] != 'none' )
-				$ids_auto = bawmrp_get_related_posts_auto( $post );
+			$ids_auto = $bawmrp_options['auto_posts'] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
 			$ids = array_merge( $ids_manual, $ids_auto );
 			if( !empty( $ids ) ):
 				$ids = wp_parse_id_list( $ids );
