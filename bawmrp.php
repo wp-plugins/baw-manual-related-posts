@@ -3,69 +3,88 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.4
+Version: 1.5
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
 
-$bawmrp_options = get_option( 'bawmrp' );
+$args = array(	'post_types' => array( 'post' ),
+				'in_content' => 'on',
+				'in_content_mode' => 'list',
+				'in_homepage' => '',
+				'max_posts' => 0,
+				'random_posts' => false,
+				'random_order' => false,
+				'auto_posts' => 'none',
+				'cache_time' => 1
+			);
+$bawmrp_options = wp_parse_args( get_option( 'bawmrp' ), $args );
+unset( $args );
 
+add_action( 'admin_init', 'bawmrp_init', 1 );
 function bawmrp_init()
 {
 	load_plugin_textdomain( 'bawmrp', '', dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 }
-add_action( 'init', 'bawmrp_init', 1 );
 
 function bawmrp_get_related_posts( $post_id )
 {
 	$ids = get_post_meta( $post_id, '_yyarpp', true );
-	return $ids != '' ? implode( ',', wp_parse_id_list( get_post_meta( $post_id, '_yyarpp', true ) ) ) : array();
+	return !empty( $ids ) != '' ? implode( ',', wp_parse_id_list( $ids ) ) : array();
 }
 
-function bawmrp_get_related_posts_auto( $post_ID )
+function bawmrp_get_related_posts_auto( $post )
 {
 	global $bawmrp_options;
-	$manual_posts = bawmrp_get_related_posts( $post_ID );
-	$num_posts = (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $manual_posts ) );
-	if( $num_posts > 0 ):
+	$manual_posts = bawmrp_get_related_posts( $post->ID );
+	$num_posts = (int)$bawmrp_options['max_posts']==0 ? '-1' : (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $manual_posts ) );
+	echo $num_posts;
+	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
 		$args = array(
-			'post_type' => $bawmrp_options['post_types'],
+			'post_type' => $post->post_type,
 			'post_status' => 'publish',
-			'post__not_in' => explode( ',', $post_ID . ',' . $manual_posts ),
+			'post__not_in' => explode( ',', $post->ID . ',' . $manual_posts ),
 			'numberposts' => $num_posts,
-			'order' => $bawmrp_options['random_posts'] ? 'RAND' : 'DESC'
+			'order' => $bawmrp_options['random_order'] ? 'RAND' : 'DESC'
 		);
 		if( $bawmrp_options['auto_posts'] == 'tags' || $bawmrp_options['auto_posts'] == 'both' ):
-			$tags = wp_get_post_tags( $post_ID, array( 'fields' => 'ids' ) );
+			$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
 			if( $tags )
 				$args['tag__in'] = $tags;
 		endif;
 		if( $bawmrp_options['auto_posts'] == 'cat' || $bawmrp_options['auto_posts'] == 'both' ):
-			$cat = get_the_category( $post_ID );
-			var_dump($cat);
-			if( $cat )
-				$args['category'] = $cat;
+			$cat = get_the_category( $post->ID );
+			$cat_ids = array();
+			foreach( $cat as $c )
+				if( isset( $c->term_id ) )
+					$cat_ids[] = $c->term_id;
+			$args['category'] = implode( ',', $cat_ids );
 		endif;
-		$relative_query = get_posts( $args ); // imp, only IDs ? coute 5 req, wtf
+		$transient_name = 'mrp_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 );
+		if( $ids = get_transient( $transient_name ) )
+			return wp_parse_id_list( $ids );
+		$relative_query = get_posts( $args );
 		$rel_id = array();
-		if( !empty( $relative_query ) )
+		if( !empty( $relative_query ) ):
 			foreach( $relative_query as $rel_post )
 				$rel_id[] = $rel_post->ID;
+			set_transient( 'mrp_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 ), $rel_id, $bawmrp_options['cache_time']*1*60*60*24 );
+		endif;
 		return wp_parse_id_list( $rel_id );
 	endif;
-	return null;
+	return array();
 }  
   
 if( is_admin() ):
 
+add_action( 'add_meta_boxes','bawmrp_add_meta_box' );
 function bawmrp_add_meta_box()
 {
 	global $bawmrp_options;
 	if( !empty( $bawmrp_options['post_types'] ) )
 		foreach( $bawmrp_options['post_types'] as $cpt )
-			add_meta_box( 'yyarpp', 'Manual Related Posts', 'bawmrp_box', $cpt, 'side' );
+			add_meta_box( 'bawmrp', 'Manual Related Posts', 'bawmrp_box', $cpt, 'side' );
 }
-add_action( 'add_meta_boxes','bawmrp_add_meta_box' );
 
 function bawmrp_box( $post )
 {
@@ -77,7 +96,7 @@ function bawmrp_box( $post )
 		<div>
 			<a href="javascript:void(0);" id="bawmrp_open_find_posts_button" class="button-secondary hide-if-no-js"><?php _e( 'Add a related post', 'bawmrp' ); ?></a>
 			<a href="javascript:void(0);" id="bawmrp_delete_related_posts" class="button-secondary hide-if-no-js"><?php _e( 'Clear all', 'bawmrp' ); ?></a>
-			<span class="hide-if-js"><?php _e( 'Add posts IDs from posts you want to relate, comma separated.'); ?></span>
+			<span class="hide-if-js"><?php _e( 'Add posts IDs from posts you want to relate, comma separated.', 'bawmrp' ); ?></span>
 		</div>
 		<ul id="ul_yyarpp" class="tagchecklist">
 			<?php
@@ -92,13 +111,15 @@ function bawmrp_box( $post )
 	<?php
 }
 
+add_action( 'admin_print_scripts-post.php', 'bawmrp_add_media_script_in_header_but_in_footer_damn_hook' );
+add_action( 'admin_print_scripts-post-new.php', 'bawmrp_add_media_script_in_header_but_in_footer_damn_hook' );
 function bawmrp_add_media_script_in_header_but_in_footer_damn_hook()
 {
 	wp_enqueue_script( 'media', null, null, null, true );
 }
-add_action( 'admin_print_scripts-post.php', 'bawmrp_add_media_script_in_header_but_in_footer_damn_hook' );
-add_action( 'admin_print_scripts-post-new.php', 'bawmrp_add_media_script_in_header_but_in_footer_damn_hook' );
 
+add_action( 'admin_footer-post.php', 'bawmrp_admin_footer_scripts' );
+add_action( 'admin_footer-post-new.php', 'bawmrp_admin_footer_scripts' );
 function bawmrp_admin_footer_scripts()
 {
 	global $bawmrp_options, $typenow, $post;
@@ -112,7 +133,7 @@ function bawmrp_admin_footer_scripts()
 			{
 				event.preventDefault();
 				findPosts.open( 'from_post','<?php echo $post->ID; ?>' ); 
-				jQuery( '.find-box-inside .find-box-search input:radio' ).removeAttr('checked').filter(':visible:first').attr( 'checked','checked' );
+				jQuery( '.find-box-inside .find-box-search input:radio' ).removeAttr( 'checked' ).filter( ':visible:first' ).attr( 'checked','checked' );
 			}
                         
 			jQuery( document ).ready( function() {
@@ -154,7 +175,6 @@ function bawmrp_admin_footer_scripts()
 						return false;
 					jQuery( 'input[name="found_post_id[]"]:checked' ).each( function(id){
 						var selectedID = jQuery(this).val();
-						// alert(selectedID);
 						var posts_ids = new Array();
 						posts_ids = jQuery( '#bawmrp_post_ids' ).val()!='' ? jQuery( '#bawmrp_post_ids' ).val().split( ',' ) : [];
 						if( jQuery.inArray( selectedID, posts_ids )=="-1" && selectedID!=<?php echo $post->ID; ?>){
@@ -204,10 +224,9 @@ function bawmrp_admin_footer_scripts()
 		endif;
 	endif;
 }
-add_action( 'admin_footer-post.php', 'bawmrp_admin_footer_scripts' );
-add_action( 'admin_footer-post-new.php', 'bawmrp_admin_footer_scripts' );
 
-
+add_action( 'admin_print_styles-post.php', 'bawmrp_admin_print_styles' );
+add_action( 'admin_print_styles-post-new.php', 'bawmrp_admin_print_styles' );
 function bawmrp_admin_print_styles()
 { 
 	global $bawmrp_options, $typenow;
@@ -231,57 +250,47 @@ function bawmrp_admin_print_styles()
 <?php
 	endif;
 }
-add_action( 'admin_print_styles-post.php', 'bawmrp_admin_print_styles' );
-add_action( 'admin_print_styles-post-new.php', 'bawmrp_admin_print_styles' );
 
+add_action( 'save_post', 'bawmmrp_save_post' );
 function bawmmrp_save_post( $post_id )
 {
 	if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ):
 		return $post_id;
 	elseif( isset( $_POST['bawmrp_post_ids'], $_POST['post_ID'] ) ):
 		check_admin_referer( 'add-relastedpostsids_' . $_POST['post_ID'], '_wpnonce_yyarpp' );
-        $ids = explode( ',', $_POST['bawmrp_post_ids'] );
-        $ids = array_map( 'absint', $ids );
-        $ids = array_filter( $ids );
-        $ids = array_unique( $ids );
-        $ids = implode( ',', $ids );
+        $ids = implode( ',', wp_parse_id_list( $_POST['bawmrp_post_ids'] ) );
 		update_post_meta( $post_id, '_yyarpp', $ids );
 	endif;
 }
-add_action( 'save_post', 'bawmmrp_save_post' );
 
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bawmrp_settings_action_links' );
 function bawmrp_settings_action_links( $links )
 {
 	array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=bawmrp_settings' ) . '">' . __( 'Settings' ) . '</a>' );
 	return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bawmrp_settings_action_links' );
 
+add_action( 'admin_menu', 'bawmrp_create_menu' );
 function bawmrp_create_menu()
 {
 	add_options_page( 'Manual Related Posts', 'Manual Related Posts' , 'manage_options', 'bawmrp_settings', 'bawmrp_settings_page' );
 	register_setting( 'bawmrp_settings', 'bawmrp' );
 }
-add_action( 'admin_menu', 'bawmrp_create_menu' );
 
+register_activation_hook( __FILE__, 'bawmrp_activation' );
 function bawmrp_activation()
 {
-	add_option( 'bawmrp', array(	'post_types' => array( 'post' ),
-									'in_content' => 'on',
-									'in_content_mode' => 'list',
-									'in_homepage' => '',
-									'max_posts' => 0,
-									'random_posts' => false,
-									'auto_posts' => 'none'
-								) );
+	global $bawmrp_options;
+	add_option( 'bawmrp', $bawmrp_options );
 }
-register_activation_hook( __FILE__, 'bawmrp_activation' );
 
+register_uninstall_hook( __FILE__, 'bawmrp_uninstaller' );
 function bawmrp_uninstaller()
 {
+	global $wpdb;
 	delete_option( 'bawmrp' );
+	$wpdb->query( 'DELETE FROM ' . $wpdb->postmeta . ' WHERE meta_key="_yyarpp"' );
 }
-register_uninstall_hook( __FILE__, 'bawmrp_uninstaller' );
 
 function bawmrp_settings_page()
 {
@@ -293,6 +302,7 @@ function bawmrp_settings_page()
 	add_settings_field( 'bawmrp_field_in_content_mode', __( 'Display mode', 'bawmrp' ), 'bawmrp_field_in_content_mode', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_homepage', __( 'Display related posts in home page too', 'bawmrp' ), 'bawmrp_field_in_homepage', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_post_types', __( 'Select post types', 'bawmrp' ), 'bawmrp_field_post_types', 'bawmrp_settings', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_cache_time', __( 'Caching data', 'bawmrp' ), 'bawmrp_field_cache_time', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_null', 'bawmrp_settings2' );
 	add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.php' );" ), 'bawmrp_settings2', 'bawmrp_settings_page' );
 
@@ -333,11 +343,19 @@ function bawmrp_field_auto_posts()
 <?php
 }
 
+function bawmrp_field_cache_time()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="number" name="bawmrp[cache_time]" min="1" max="365" value="<?php echo (int)$bawmrp_options['cache_time']; ?>" /> <em><?php _e( 'How many days do we have to cache results ? (min. 1)', 'bawmrp' ); ?></em></label>
+<?php
+}
+
 function bawmrp_field_max_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="number" name="bawmrp[max_posts]" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'You can choose "4" and add more than 4 in the meta box, then use "Random posts" to view different related posts each time. "0" = No limit', 'bawmrp' ); ?></em></label>
+	<label><input type="number" name="bawmrp[max_posts]" min="0" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'Including manual and related posts.', 'bawmrp' ); ?></em></label>
 <?php
 }
 
@@ -345,7 +363,8 @@ function bawmrp_field_random_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts display.', 'bawmrp' ); ?></em></label>
+	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts display.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="checkbox" name="bawmrp[random_order]" <?php checked( $bawmrp_options['random_order'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts date.', 'bawmrp' ); ?></em></label><br />
 <?php
 }
 
@@ -378,20 +397,23 @@ function bawmrp_field_in_homepage()
 
 else:
 
-if( isset( $bawmrp_options['in_content'] ) && $bawmrp_options['in_content']=='on' )
+if( $bawmrp_options['in_content']=='on' )
 	add_filter( 'the_content', 'bawmrp_the_content' );
 
-if( !isset( $bawmrp_options['in_content_mode'] ) || $bawmrp_options['in_content_mode']=='list' ): // LIST mode
+add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
+add_shortcode( 'bawmrp', 'bawmrp_the_content' );
+if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
 	function bawmrp_the_content( $content )
 	{
 		global $post, $bawmrp_options;
 		
-		if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
+		if( ( ( is_home() && $bawmrp_options['in_homepage']=='on' ) ||
 			  ( is_singular() ) )
 			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
-			$ids = bawmrp_get_related_posts( $post->ID );
+			$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
 			if( $bawmrp_options['auto_posts'] != 'none' )
-				$ids = $ids + bawmrp_get_related_posts_auto( $post->ID );
+				$ids_auto = bawmrp_get_related_posts_auto( $post );
+			$ids = array_merge( $ids_manual, $ids_auto );
 			if( !empty( $ids ) ):
 				$ids = wp_parse_id_list( $ids );
 				$list = '';
@@ -401,9 +423,11 @@ if( !isset( $bawmrp_options['in_content_mode'] ) || $bawmrp_options['in_content_
 					$ids = array_slice( $ids, 0, (int)$bawmrp_options['max_posts'] );
 				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
 				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
-				$head = '<div class="bawmrp"><h3>'.$head_title.'</h3><ul>';
-				foreach( $ids as $id )
-					$list .= '<li><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+				$head = '<div class="bawmrp"><h3>' . esc_html( $head_title ) . '</h3><ul>';
+				foreach( $ids as $id ):
+					$class = in_array( $id, $ids_manual ) ? 'bawmap_manual' : 'bawmrp_auto';
+					$list .= '<li class="' . sanitize_html_class( $class ) . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+				endforeach;
 				$foot = '</ul></div>';
 				$final = $content . $head . $list . $foot;
 				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
@@ -415,20 +439,25 @@ else: // THUMB mode
 	function bawmrp_the_content( $content )
 	{
 		global $post, $bawmrp_options;
-		if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
-			  ( is_singular() ) )
-			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
-			$ids = bawmrp_get_related_posts( $post->ID );
+		if( ( is_home() && $bawmrp_options['in_homepage']=='on' ) ||
+			is_singular( $bawmrp_options['post_types'] ) ):
+			$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
+			$ids_auto = $bawmrp_options['auto_posts'] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
+			$ids = array_merge( $ids_manual, $ids_auto );
 			if( !empty( $ids ) ):
+				$ids = wp_parse_id_list( $ids );
 				$list = '';
-				$ids = explode( ',', $ids );
+				if( $bawmrp_options['random_posts'] == 'on' )
+					shuffle( $ids );
+				if( (int)$bawmrp_options['max_posts'] > 0 )
+					$ids = array_slice( $ids, 0, (int)$bawmrp_options['max_posts'] );
 				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
 				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
-				$head = '<div class="mrp_div"><h3>'.$head_title.'</h3><ul>';
+				$head = '<div class="mrp_div"><h3>' . esc_html( $head_title ) . '</h3><ul>';
 				$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:180px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
 				foreach( $ids as $id ):
 					$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, array( 100, 100 ) ) : '<img src="' . admin_url( '/images/wp-badge.png' ) . '" height="100" width="100" />';
-					$list .= '<li style="' . $style . '"><a href="' . apply_filters( 'the_permalink', get_permalink( $id ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+					$list .= '<li style="' . esc_attr( $style ) . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 				endforeach;
 				$foot = '</ul></div><div style="clear:both;"></div>';
 				$final = $content . $head . $list . $foot;
@@ -438,7 +467,5 @@ else: // THUMB mode
 		return $content;
 	}
 endif;
-add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
-add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 
 endif;

@@ -41,7 +41,7 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 = 1.5 =
 * 15 oct 2012
-* You can now, so ironic, add auto related tags if you want to fill old posts with related posts. Auto related are found by tags, cat or both.
+* You can now, so ironic, add auto related tags if you want to fill old posts with related posts. Auto related are found by tags, cats or both.
 * <li> tags in displayed posts list contains now a class "bawmrp_manual" or "bawmrp_auto"
 * You can random the display of related posts
 * You can select a max posts to display, then, combined with random, you can display different manual/auto related posts.
