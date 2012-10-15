@@ -43,6 +43,7 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 * 15 oct 2012 (again and again)
 * Add possibility to include sticky posts
 * Add possibility to include recent posts
+* Add 2 more CSS classes "bawmrp_sticky" and "bawmrp_recent"
 * Teaser: 2.0 under dev
 
 = 1.5.2 =
