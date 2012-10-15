@@ -18,9 +18,44 @@ add_action( 'init', 'bawmrp_init', 1 );
 
 function bawmrp_get_related_posts( $post_id )
 {
-	return get_post_meta( $post_id, '_yyarpp', true );
+	$ids = get_post_meta( $post_id, '_yyarpp', true );
+	return $ids != '' ? implode( ',', wp_parse_id_list( get_post_meta( $post_id, '_yyarpp', true ) ) ) : array();
 }
 
+function bawmrp_get_related_posts_auto( $post_ID )
+{
+	global $bawmrp_options;
+	$manual_posts = bawmrp_get_related_posts( $post_ID );
+	$num_posts = (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $manual_posts ) );
+	if( $num_posts > 0 ):
+		$args = array(
+			'post_type' => $bawmrp_options['post_types'],
+			'post_status' => 'publish',
+			'post__not_in' => explode( ',', $post_ID . ',' . $manual_posts ),
+			'numberposts' => $num_posts,
+			'order' => $bawmrp_options['random_posts'] ? 'RAND' : 'DESC'
+		);
+		if( $bawmrp_options['auto_posts'] == 'tags' || $bawmrp_options['auto_posts'] == 'both' ):
+			$tags = wp_get_post_tags( $post_ID, array( 'fields' => 'ids' ) );
+			if( $tags )
+				$args['tag__in'] = $tags;
+		endif;
+		if( $bawmrp_options['auto_posts'] == 'cat' || $bawmrp_options['auto_posts'] == 'both' ):
+			$cat = get_the_category( $post_ID );
+			var_dump($cat);
+			if( $cat )
+				$args['category'] = $cat;
+		endif;
+		$relative_query = get_posts( $args ); // imp, only IDs ? coute 5 req, wtf
+		$rel_id = array();
+		if( !empty( $relative_query ) )
+			foreach( $relative_query as $rel_post )
+				$rel_id[] = $rel_post->ID;
+		return wp_parse_id_list( $rel_id );
+	endif;
+	return null;
+}  
+  
 if( is_admin() ):
 
 function bawmrp_add_meta_box()
@@ -47,7 +82,7 @@ function bawmrp_box( $post )
 		<ul id="ul_yyarpp" class="tagchecklist">
 			<?php
 			if( !empty( $related_post_ids ) ):
-				$related_post_ids = explode( ',', $related_post_ids );
+				$related_post_ids = wp_parse_id_list( $related_post_ids );
 				foreach( $related_post_ids as $id ) : ?>
 					<li data-id="<?php echo esc_html( $id ); ?>"><span style="float:none;"><a class="hide-if-no-js erase_yyarpp">X</a>&nbsp;&nbsp;<?php echo get_the_title( (int)$id ); ?></span></li>
 			<?php endforeach;
@@ -234,7 +269,10 @@ function bawmrp_activation()
 	add_option( 'bawmrp', array(	'post_types' => array( 'post' ),
 									'in_content' => 'on',
 									'in_content_mode' => 'list',
-									'in_homepage' => ''
+									'in_homepage' => '',
+									'max_posts' => 0,
+									'random_posts' => false,
+									'auto_posts' => 'none'
 								) );
 }
 register_activation_hook( __FILE__, 'bawmrp_activation' );
@@ -248,6 +286,9 @@ register_uninstall_hook( __FILE__, 'bawmrp_uninstaller' );
 function bawmrp_settings_page()
 {
 	add_settings_section( 'bawmrp_settings_page', __( 'General', 'bawmrp' ), '__return_null', 'bawmrp_settings' );
+	add_settings_field( 'bawmrp_field_max_posts', __( 'How many posts maximum', 'bawmrp' ), 'bawmrp_field_max_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_random_posts', __( 'Randomize related posts', 'bawmrp' ), 'bawmrp_field_random_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_auto_posts', __( 'Use auto related posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_auto_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_content', __( 'Display related posts in post content', 'bawmrp' ), 'bawmrp_field_in_content', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_content_mode', __( 'Display mode', 'bawmrp' ), 'bawmrp_field_in_content_mode', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_homepage', __( 'Display related posts in home page too', 'bawmrp' ), 'bawmrp_field_in_homepage', 'bawmrp_settings', 'bawmrp_settings_page' );
@@ -278,6 +319,34 @@ function bawmrp_field_post_types()
 		echo '<label><input type="checkbox" '.checked( in_array( $cpt->name, $bawmrp_options['post_types'] ) ? 'on' : '', 'on', false ).' name="bawmrp[post_types][]" value="'.esc_attr( $cpt->name ).'" /> '.esc_html( $cpt->label ).'</label><br />' .
 			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . sprintf( __( 'Front-end title for %s:', 'bawmrp' ), strtolower( esc_html( $cpt->label ) ) ) . ' <input type="text" size="40" name="bawmrp[head_titles][' . esc_attr( $cpt->name ) . ']" value="' . esc_attr( $bawmrp_options['head_titles'][$cpt->name] ) . '" /><br />';
 	endforeach;
+}
+
+function bawmrp_field_auto_posts()
+{
+	global $bawmrp_options;
+?>
+	<em><?php _e( 'So ironic ... auto related posts in manual related posts ;)', 'bawmrp' ); ?></em><br />
+	<label><input type="radio" name="bawmrp[auto_posts]" value="none" <?php checked( $bawmrp_options['auto_posts'], 'none' ); ?> /> <em><?php _e( 'No thank you, i only need my manual posts.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="radio" name="bawmrp[auto_posts]" value="both" <?php checked( $bawmrp_options['auto_posts'], 'both' ); ?> /> <em><?php _e( 'Use tags and categories to find related posts.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="radio" name="bawmrp[auto_posts]" value="tags" <?php checked( $bawmrp_options['auto_posts'], 'tags' ); ?> /> <em><?php _e( 'Use only tags.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="radio" name="bawmrp[auto_posts]" value="cat" <?php checked( $bawmrp_options['auto_posts'], 'cat' ); ?> /> <em><?php _e( 'Use ony categories.', 'bawmrp' ); ?></em></label>
+<?php
+}
+
+function bawmrp_field_max_posts()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="number" name="bawmrp[max_posts]" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'You can choose "4" and add more than 4 in the meta box, then use "Random posts" to view different related posts each time. "0" = No limit', 'bawmrp' ); ?></em></label>
+<?php
+}
+
+function bawmrp_field_random_posts()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts display.', 'bawmrp' ); ?></em></label>
+<?php
 }
 
 function bawmrp_field_in_content()
@@ -316,13 +385,20 @@ if( !isset( $bawmrp_options['in_content_mode'] ) || $bawmrp_options['in_content_
 	function bawmrp_the_content( $content )
 	{
 		global $post, $bawmrp_options;
+		
 		if( ( ( is_home() && isset( $bawmrp_options['in_homepage'] ) && $bawmrp_options['in_homepage']=='on' ) ||
 			  ( is_singular() ) )
 			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
 			$ids = bawmrp_get_related_posts( $post->ID );
+			if( $bawmrp_options['auto_posts'] != 'none' )
+				$ids = $ids + bawmrp_get_related_posts_auto( $post->ID );
 			if( !empty( $ids ) ):
+				$ids = wp_parse_id_list( $ids );
 				$list = '';
-				$ids = explode( ',', $ids );
+				if( $bawmrp_options['random_posts'] == 'on' )
+					shuffle( $ids );
+				if( (int)$bawmrp_options['max_posts'] > 0 )
+					$ids = array_slice( $ids, 0, (int)$bawmrp_options['max_posts'] );
 				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
 				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
 				$head = '<div class="bawmrp"><h3>'.$head_title.'</h3><ul>';
