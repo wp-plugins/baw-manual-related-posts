@@ -39,6 +39,12 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.6 =
+* 15 oct 2012 (again and again)
+* Add possibility to include sticky posts
+* Add possibility to include recent posts
+* Teaser: 2.0 under dev
+
 = 1.5.2 =
 * 15 oct 2012
 * Warning fixed

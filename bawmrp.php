@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.5.2
+Version: 1.6
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -36,13 +36,16 @@ function bawmrp_get_related_posts( $post_id )
 function bawmrp_get_related_posts_auto( $post )
 {
 	global $bawmrp_options;
-	$manual_posts = bawmrp_get_related_posts( $post->ID );
-	$num_posts = (int)$bawmrp_options['max_posts']==0 ? '-1' : (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $manual_posts ) );
+	$ids_manual = bawmrp_get_related_posts( $post->ID );
+	$num_posts = (int)$bawmrp_options['max_posts']==0 ? '-1' : (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $ids_manual ) );
 	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
+		$ids_sticky = get_option( 'sticky_posts' );
+		$ids_recent = $bawmrp_options[ 'recent_posts' ] == 'on' ? bawmrp_get_recent_posts( $post, true ) : array();
+		$ids = wp_parse_id_list( array_merge( explode( ',', $ids_manual ), $ids_sticky, $ids_recent ) );
 		$args = array(
 			'post_type' => $post->post_type,
 			'post_status' => 'publish',
-			'post__not_in' => explode( ',', $post->ID . ',' . $manual_posts ),
+			'post__not_in' => explode( ',', $post->ID . $ids ),
 			'numberposts' => $num_posts,
 			'order' => $bawmrp_options['random_order'] ? 'RAND' : 'DESC'
 		);
@@ -59,7 +62,8 @@ function bawmrp_get_related_posts_auto( $post )
 					$cat_ids[] = $c->term_id;
 			$args['category'] = implode( ',', $cat_ids );
 		endif;
-		$transient_name = 'mrp_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 );
+		$transient_name = 'mrp_auto_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 );
+		unset( $ids );
 		if( $ids = get_transient( $transient_name ) )
 			return wp_parse_id_list( $ids );
 		$relative_query = get_posts( $args );
@@ -67,7 +71,38 @@ function bawmrp_get_related_posts_auto( $post )
 		if( !empty( $relative_query ) ):
 			foreach( $relative_query as $rel_post )
 				$rel_id[] = $rel_post->ID;
-			set_transient( 'mrp_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 ), $rel_id, $bawmrp_options['cache_time']*1*60*60*24 );
+			set_transient( 'mrp_auto_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 ), $rel_id, $bawmrp_options['cache_time']*1*60*60*24 );
+		endif;
+		return wp_parse_id_list( $rel_id );
+	endif;
+	return array();
+}  
+  
+function bawmrp_get_recent_posts( $post, $ignore_auto=false )
+{
+	global $bawmrp_options;
+	$ids_manual = bawmrp_get_related_posts( $post->ID );
+	$num_posts = (int)$bawmrp_options['max_posts']==0 ? '-1' : (int)$bawmrp_options['max_posts'] - count( wp_parse_id_list( $ids_manual ) );
+	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
+		$ids_sticky = get_option( 'sticky_posts' );
+		$ids_auto = !$ignore_auto && $bawmrp_options[ 'auto_posts' ] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
+		$ids = wp_parse_id_list( array_merge( explode( ',', $ids_manual ), $ids_sticky, $ids_auto ) );
+		$args = array(
+			'post_type' => $post->post_type,
+			'post_status' => 'publish',
+			'post__not_in' => explode( ',', $post->ID . $ids ),
+			'numberposts' => $num_posts
+		);
+		$transient_name = 'mrp_recent_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 );
+		unset( $ids );
+		if( $ids = get_transient( $transient_name ) )
+			return wp_parse_id_list( $ids );
+		$relative_query = get_posts( $args );
+		$rel_id = array();
+		if( !empty( $relative_query ) ):
+			foreach( $relative_query as $rel_post )
+				$rel_id[] = $rel_post->ID;
+			set_transient( 'mrp_recent_' . substr( md5( serialize( $args + $bawmrp_options ) ), 0, 12 ), $rel_id, $bawmrp_options['cache_time']*1*60*60*24 );
 		endif;
 		return wp_parse_id_list( $rel_id );
 	endif;
@@ -296,14 +331,17 @@ function bawmrp_settings_page()
 	add_settings_section( 'bawmrp_settings_page', __( 'General', 'bawmrp' ), '__return_null', 'bawmrp_settings' );
 	add_settings_field( 'bawmrp_field_max_posts', __( 'How many posts maximum', 'bawmrp' ), 'bawmrp_field_max_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_random_posts', __( 'Randomize related posts', 'bawmrp' ), 'bawmrp_field_random_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
-	add_settings_field( 'bawmrp_field_auto_posts', __( 'Use auto related posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_auto_posts', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_content', __( 'Display related posts in post content', 'bawmrp' ), 'bawmrp_field_in_content', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_content_mode', __( 'Display mode', 'bawmrp' ), 'bawmrp_field_in_content_mode', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_in_homepage', __( 'Display related posts in home page too', 'bawmrp' ), 'bawmrp_field_in_homepage', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_post_types', __( 'Select post types', 'bawmrp' ), 'bawmrp_field_post_types', 'bawmrp_settings', 'bawmrp_settings_page' );
 	add_settings_field( 'bawmrp_field_cache_time', __( 'Caching data', 'bawmrp' ), 'bawmrp_field_cache_time', 'bawmrp_settings', 'bawmrp_settings_page' );
-	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_null', 'bawmrp_settings2' );
-	add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.php' );" ), 'bawmrp_settings2', 'bawmrp_settings_page' );
+	add_settings_section( 'bawmrp_settings_page', __( 'Auto posts', 'bawmrp' ), 'bawmrp_so_ironic', 'bawmrp_settings2' );
+	add_settings_field( 'bawmrp_field_auto_posts', __( 'Use auto related posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_auto_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_sticky_posts', __( 'Use sticky posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_sticky_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
+	add_settings_field( 'bawmrp_field_recent_posts', __( 'Use recent posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_recent_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
+	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_null', 'bawmrp_settings3' );
+	add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.php' );" ), 'bawmrp_settings3', 'bawmrp_settings_page' );
 
 ?>
 	<div class="wrap">
@@ -313,12 +351,26 @@ function bawmrp_settings_page()
 	<form action="options.php" method="post">
 		<?php settings_fields( 'bawmrp_settings' ); ?>
 		<?php do_settings_sections( 'bawmrp_settings' ); ?>
-		<?php submit_button(); ?>
 		<?php do_settings_sections( 'bawmrp_settings2' ); ?>
+		<?php submit_button(); ?>
+		<?php do_settings_sections( 'bawmrp_settings3' ); ?>
 	</form>
 <?php
 }
 
+function bawmrp_field_in_content()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="checkbox" name="bawmrp[in_content]" <?php checked( $bawmrp_options['in_content'], 'on' ); ?> /> <em><?php _e( 'Will be displayed at bottom of content.', 'bawmrp' ); ?></em></label>
+<?php
+}
+
+function bawmrp_so_ironic()
+{ ?>
+	<em><?php _e( 'So ironic ... auto related posts in manual related posts ;)', 'bawmrp' ); ?></em>
+<?php
+}
 function bawmrp_field_post_types()
 {
 	global $bawmrp_options;
@@ -334,7 +386,6 @@ function bawmrp_field_auto_posts()
 {
 	global $bawmrp_options;
 ?>
-	<em><?php _e( 'So ironic ... auto related posts in manual related posts ;)', 'bawmrp' ); ?></em><br />
 	<label><input type="radio" name="bawmrp[auto_posts]" value="none" <?php checked( $bawmrp_options['auto_posts'], 'none' ); ?> /> <em><?php _e( 'No thank you, i only need my manual posts.', 'bawmrp' ); ?></em></label><br />
 	<label><input type="radio" name="bawmrp[auto_posts]" value="both" <?php checked( $bawmrp_options['auto_posts'], 'both' ); ?> /> <em><?php _e( 'Use tags and categories to find related posts.', 'bawmrp' ); ?></em></label><br />
 	<label><input type="radio" name="bawmrp[auto_posts]" value="tags" <?php checked( $bawmrp_options['auto_posts'], 'tags' ); ?> /> <em><?php _e( 'Use only tags.', 'bawmrp' ); ?></em></label><br />
@@ -354,7 +405,7 @@ function bawmrp_field_max_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="number" name="bawmrp[max_posts]" min="0" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'Including manual and related posts.', 'bawmrp' ); ?></em></label>
+	<label><input type="number" name="bawmrp[max_posts]" min="0" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'Including manual and related posts. (0 = No limit)', 'bawmrp' ); ?></em></label>
 <?php
 }
 
@@ -363,15 +414,23 @@ function bawmrp_field_random_posts()
 	global $bawmrp_options;
 ?>
 	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts display.', 'bawmrp' ); ?></em></label><br />
-	<label><input type="checkbox" name="bawmrp[random_order]" <?php checked( $bawmrp_options['random_order'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts date.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="checkbox" name="bawmrp[random_order]" <?php checked( $bawmrp_options['random_order'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts date (posts requests.', 'bawmrp' ); ?></em></label><br />
 <?php
 }
 
-function bawmrp_field_in_content()
+function bawmrp_field_sticky_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="checkbox" name="bawmrp[in_content]" <?php checked( $bawmrp_options['in_content'], 'on' ); ?> /> <em><?php _e( 'Will be displayed at bottom of content.', 'bawmrp' ); ?></em></label>
+	<label><input type="checkbox" name="bawmrp[sticky_posts]" <?php checked( $bawmrp_options['sticky_posts'], 'on' ); ?> /> <em><?php _e( 'Sticky posts will be included if needed.', 'bawmrp' ); ?></em></label>
+<?php
+}
+
+function bawmrp_field_recent_posts()
+{
+	global $bawmrp_options;
+?>
+	<label><input type="checkbox" name="bawmrp[recent_posts]" <?php checked( $bawmrp_options['recent_posts'], 'on' ); ?> /> <em><?php _e( 'Recents posts will be included if needed.', 'bawmrp' ); ?></em></label>
 <?php
 }
 
@@ -411,10 +470,14 @@ if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
 			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
 			$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
 			$ids_auto = $bawmrp_options['auto_posts'] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
-			$ids = array_merge( $ids_manual, $ids_auto );
-			if( !empty( $ids ) ):
+			$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_auto ) );
+			$ids_sticky = $bawmrp_options['sticky_posts']=='on' && ( (int)$bawmrp_options['max_posts']>count($ids) || (int)$bawmrp_options['max_posts']==0 ) ? get_option( 'sticky_posts' ) : array();
+			$ids = wp_parse_id_list( array_merge( $ids, $ids_sticky ) );
+			$ids_recent = $bawmrp_options['recent_posts']=='on' && ( (int)$bawmrp_options['max_posts']>count($ids) || (int)$bawmrp_options['max_posts']==0 ) ? bawmrp_get_recent_posts( $post ) : array();
+			$ids = wp_parse_id_list( array_merge( $ids, $ids_recent ) );
+			if( !empty( $ids ) && is_array( $ids ) && isset( $ids[0] ) && $ids[0]!=0 ):
 				$ids = wp_parse_id_list( $ids );
-				$list = '';
+				$list = array();
 				if( $bawmrp_options['random_posts'] == 'on' )
 					shuffle( $ids );
 				if( (int)$bawmrp_options['max_posts'] > 0 )
@@ -422,12 +485,21 @@ if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
 				$head_title = isset( $bawmrp_options['head_title'] ) ? $bawmrp_options['head_title'] : __( 'You may also like:', 'bawmrp' ); // retro compat
 				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
 				$head = '<div class="bawmrp"><h3>' . esc_html( $head_title ) . '</h3><ul>';
+				do_action( 'bawmrp_first_li' );
 				foreach( $ids as $id ):
-					$class = in_array( $id, $ids_manual ) ? 'bawmap_manual' : 'bawmrp_auto';
-					$list .= '<li class="' . sanitize_html_class( $class ) . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+					if( in_array( $id, $ids_manual ) )
+						$class = 'bawmap_manual';
+					elseif( in_array( $id, $ids_auto ) )
+						$class = 'bawmrp_auto';
+					elseif( in_array( $id, $ids_sticky ) )
+						$class = 'bawmrp_sticky';
+					elseif( in_array( $id, $ids_recent ) )
+						$class = 'bawmrp_recent';
+					$list[] = '<li class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 				endforeach;
+				do_action( 'bawmrp_last_li' );
 				$foot = '</ul></div>';
-				$final = $content . $head . $list . $foot;
+				$final = $content . $head . implode( "\n", $list ) . $foot;
 				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
 			endif;
 		endif;
@@ -441,8 +513,12 @@ else: // THUMB mode
 			is_singular( $bawmrp_options['post_types'] ) ):
 			$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
 			$ids_auto = $bawmrp_options['auto_posts'] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
-			$ids = array_merge( $ids_manual, $ids_auto );
-			if( !empty( $ids ) ):
+			$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_auto ) );
+			$ids_sticky = $bawmrp_options['sticky_posts']=='on' && ( (int)$bawmrp_options['max_posts']>count($ids) || (int)$bawmrp_options['max_posts']==0 ) ? get_option( 'sticky_posts' ) : array();
+			$ids = wp_parse_id_list( array_merge( $ids, $ids_sticky ) );
+			$ids_recent = $bawmrp_options['recent_posts']=='on' && ( (int)$bawmrp_options['max_posts']>count($ids) || (int)$bawmrp_options['max_posts']==0 ) ? bawmrp_get_recent_posts( $post ) : array();
+			$ids = wp_parse_id_list( array_merge( $ids, $ids_recent ) );
+			if( !empty( $ids ) && is_array( $ids ) && isset( $ids[0] ) && $ids[0]!=0 ):
 				$ids = wp_parse_id_list( $ids );
 				$list = '';
 				if( $bawmrp_options['random_posts'] == 'on' )
@@ -453,10 +529,20 @@ else: // THUMB mode
 				$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) ? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
 				$head = '<div class="mrp_div"><h3>' . esc_html( $head_title ) . '</h3><ul>';
 				$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:180px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
+				do_action( 'bawmrp_first_li' );
 				foreach( $ids as $id ):
+					if( in_array( $id, $ids_manual ) )
+						$class = 'bawmap_manual';
+					elseif( in_array( $id, $ids_auto ) )
+						$class = 'bawmrp_auto';
+					elseif( in_array( $id, $ids_sticky ) )
+						$class = 'bawmrp_sticky';
+					elseif( in_array( $id, $ids_recent ) )
+						$class = 'bawmrp_recent';
 					$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, array( 100, 100 ) ) : '<img src="' . admin_url( '/images/wp-badge.png' ) . '" height="100" width="100" />';
-					$list .= '<li style="' . esc_attr( $style ) . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+					$list .= '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 				endforeach;
+				do_action( 'bawmrp_last_li' );
 				$foot = '</ul></div><div style="clear:both;"></div>';
 				$final = $content . $head . $list . $foot;
 				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
