@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.6
+Version: 1.6.1
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -499,6 +499,7 @@ if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
 				endforeach;
 				do_action( 'bawmrp_last_li' );
 				$foot = '</ul></div>';
+				$list = apply_filters( 'bawmrp_list_li', $list );
 				$final = $content . $head . implode( "\n", $list ) . $foot;
 				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
 			endif;
@@ -520,7 +521,7 @@ else: // THUMB mode
 			$ids = wp_parse_id_list( array_merge( $ids, $ids_recent ) );
 			if( !empty( $ids ) && is_array( $ids ) && isset( $ids[0] ) && $ids[0]!=0 ):
 				$ids = wp_parse_id_list( $ids );
-				$list = '';
+				$list = array();
 				if( $bawmrp_options['random_posts'] == 'on' )
 					shuffle( $ids );
 				if( (int)$bawmrp_options['max_posts'] > 0 )
@@ -540,11 +541,12 @@ else: // THUMB mode
 					elseif( in_array( $id, $ids_recent ) )
 						$class = 'bawmrp_recent';
 					$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, array( 100, 100 ) ) : '<img src="' . admin_url( '/images/wp-badge.png' ) . '" height="100" width="100" />';
-					$list .= '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+					$list[] = '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 				endforeach;
 				do_action( 'bawmrp_last_li' );
 				$foot = '</ul></div><div style="clear:both;"></div>';
-				$final = $content . $head . $list . $foot;
+				$list = apply_filters( 'bawmrp_list_li', $list );
+				$final = $content . $head . implode( "\n", $list ) . $foot;
 				$content = apply_filters( 'related_posts_content', $final, $content, $head, $list, $foot );
 			endif;
 		endif;
