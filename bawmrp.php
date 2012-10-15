@@ -405,7 +405,7 @@ function bawmrp_field_max_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="number" name="bawmrp[max_posts]" min="0" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'Including manual and related posts. (0 = No limit)', 'bawmrp' ); ?></em></label>
+	<label><input type="number" name="bawmrp[max_posts]" min="0" value="<?php echo (int)$bawmrp_options['max_posts']; ?>" /> <em><?php _e( 'Including manual and auto related posts. (0 = No limit)', 'bawmrp' ); ?></em></label>
 <?php
 }
 
