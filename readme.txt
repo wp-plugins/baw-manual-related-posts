@@ -21,9 +21,10 @@ You can manually choose which posts will be linked to every posts, out auto sele
 
 1. Is there some filters ?
 Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
+Also the filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
 
 1. Is the any actions ?
-Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads. Also the filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
+Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads. 
 
 1. Is there any shortcode ?
 Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
