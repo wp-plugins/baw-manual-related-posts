@@ -443,7 +443,7 @@ function bawmrp_field_in_content_mode()
 	<br />
 	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'thumb' ); ?> value="thumb" /> <em><?php _e( 'Thumb mode.', 'bawmrp' ); ?></em></label>
 	<br />
-	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'shortcode' ); ?> value="thumb" /> <em><?php _e( 'Shortcode mode. Use <code>&lt;?php echo do_shortcode( \'[manual_related_posts]\' ); ?&gt</code> to pull the list out.', 'bawmrp' ); ?></em></label>
+	<em><?php _e( 'Shortcode mode. Use <code>&lt;?php echo do_shortcode( \'[manual_related_posts]\' ); ?&gt</code> to pull the list out.', 'bawmrp' ); ?></em>
 <?php
 }
 
@@ -457,16 +457,14 @@ function bawmrp_field_in_homepage()
 
 else:
 
+
 if( $bawmrp_options['in_content']=='on' )
 	add_filter( 'the_content', 'bawmrp_the_content' );
 
-add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
-add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 if( $bawmrp_options['in_content_mode']=='list' ): // LIST mode
-	function bawmrp_the_content( $content )
+	function bawmrp_the_content( $content='' )
 	{
 		global $post, $bawmrp_options;
-		
 		if( ( ( is_home() && $bawmrp_options['in_homepage']=='on' ) ||
 			  ( is_singular() ) )
 			&& in_array( $post->post_type, $bawmrp_options['post_types'] ) ):
@@ -557,3 +555,5 @@ else: // THUMB mode
 endif;
 
 endif;
+add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
+add_shortcode( 'bawmrp', 'bawmrp_the_content' );
