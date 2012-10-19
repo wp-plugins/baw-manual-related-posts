@@ -3,13 +3,13 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.6.2
+Version: 1.6.3
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
 
 $args = array(	'post_types' => array( 'post' ),
-				'in_content' => 'on',
+				'in_content' => false,
 				'in_content_mode' => 'list',
 				'in_homepage' => '',
 				'max_posts' => 0,
@@ -41,7 +41,7 @@ function bawmrp_get_related_posts_auto( $post )
 	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
 		$ids_sticky = get_option( 'sticky_posts' );
 		$ids_recent = $bawmrp_options[ 'recent_posts' ] == 'on' ? bawmrp_get_recent_posts( $post, true ) : array();
-		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_sticky, $ids_recent ) );
+		$ids = wp_parse_id_list( array_merge( wp_parse_id_list( $ids_manual ), $ids_sticky, $ids_recent ) );
 		$args = array(
 			'post_type' => $post->post_type,
 			'post_status' => 'publish',
@@ -86,7 +86,7 @@ function bawmrp_get_recent_posts( $post, $ignore_auto=false )
 	if( $num_posts > 0 || (int)$bawmrp_options['max_posts']==0 ):
 		$ids_sticky = get_option( 'sticky_posts' );
 		$ids_auto = !$ignore_auto && $bawmrp_options[ 'auto_posts' ] != 'none' ? bawmrp_get_related_posts_auto( $post ) : array();
-		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_sticky, $ids_auto ) );
+		$ids = wp_parse_id_list( array_merge( wp_parse_id_list( $ids_manual ), $ids_sticky, $ids_auto ) );
 		$args = array(
 			'post_type' => $post->post_type,
 			'post_status' => 'publish',
@@ -413,8 +413,8 @@ function bawmrp_field_random_posts()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts display.', 'bawmrp' ); ?></em></label><br />
-	<label><input type="checkbox" name="bawmrp[random_order]" <?php checked( $bawmrp_options['random_order'], 'on' ); ?> /> <em><?php _e( 'You can randomize the order of posts date (posts requests.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="checkbox" name="bawmrp[random_posts]" <?php checked( $bawmrp_options['random_posts'], 'on' ); ?> /> <em><?php _e( 'You can randomize the display for posts order.', 'bawmrp' ); ?></em></label><br />
+	<label><input type="checkbox" name="bawmrp[random_order]" <?php checked( $bawmrp_options['random_order'], 'on' ); ?> /> <em><?php _e( 'You can randomize the posts request.', 'bawmrp' ); ?></em></label><br />
 <?php
 }
 
@@ -442,6 +442,8 @@ function bawmrp_field_in_content_mode()
 	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'list' ); ?> value="list" /> <em><?php _e( 'List mode.', 'bawmrp' ); ?></em></label>
 	<br />
 	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'thumb' ); ?> value="thumb" /> <em><?php _e( 'Thumb mode.', 'bawmrp' ); ?></em></label>
+	<br />
+	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'shortcode' ); ?> value="thumb" /> <em><?php _e( 'Shortcode mode. Use <code>&lt;?php echo do_shortcode( \'[manual_related_posts]\' ); ?&gt</code> to pull the list out.', 'bawmrp' ); ?></em></label>
 <?php
 }
 

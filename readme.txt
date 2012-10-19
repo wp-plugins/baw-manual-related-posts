@@ -43,6 +43,11 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.6.3 =
+* 19 oct 2012
+* Translations fixes
+* Fix: Checkbox for "Display in content" was always checked.
+
 = 1.6.2 =
 * 15 oct 2012
 * Warning fix

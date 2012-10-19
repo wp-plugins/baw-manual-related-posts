@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-15 15:45+0100\n"
+"POT-Creation-Date: 2012-10-18 15:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -74,11 +74,11 @@ msgstr "Trouver des articles en relation de façon automatique pour remplir le m
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:341
 msgid "Use sticky posts to fill the max posts ?"
-msgstr "Trouver des articles en relation de façon automatique pour remplir le max articles ?"
+msgstr "Utilisez les articles à la une pour remplir le max articles ?"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:342
 msgid "Use recent posts to fill the max posts ?"
-msgstr "Trouver des articles en relation de façon automatique pour remplir le max articles ?"
+msgstr "Utiliser les articles récents pour remplir le max articles ?"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:343
 msgid "About"
@@ -93,15 +93,15 @@ msgid "So ironic ... auto related posts in manual related posts ;)"
 msgstr "Quelle ironie ... des articles en relations automatisés dans les articles en relations manuels ;)"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:379
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:485
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:528
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:487
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:531
 msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:381
 #, php-format
 msgid "Front-end title for %s:"
-msgstr "Titre sur le fron-end pour les %s :"
+msgstr "Titre sur le front-end pour les %s :"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:389
 msgid "No thank you, i only need my manual posts."
@@ -128,12 +128,12 @@ msgid "Including manual and auto related posts. (0 = No limit)"
 msgstr "Inclus les articles manuels et auto.(0 = Pas de limite)"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:416
-msgid "You can randomize the order of posts display."
+msgid "You can randomize the display for posts order."
 msgstr "Vous pouvez afficher les articles dans un ordre aléatoire."
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:417
-msgid "You can randomize the order of posts date (posts requests."
-msgstr "Vous pouvez afficher les articles dans un ordre aléatoire."
+msgid "You can randomize the posts request."
+msgstr "Vous pouvez rendre aléatoire la requête sur les articles."
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:425
 msgid "Sticky posts will be included if needed."
@@ -151,7 +151,11 @@ msgstr "Mode en liste."
 msgid "Thumb mode."
 msgstr "Mode en miniatures."
 
-#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:452
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:446
+msgid "Shortcode mode. Use <code>&lt;?php echo do_shortcode( '[manual_related_posts]' ); ?&gt</code> to pull the list out."
+msgstr "Mode Shortcode. Utilisez <code>&lt;?php echo do_shortcode( '[manual_related_posts]' ); ?&gt</code> pour afficher la liste."
+
+#: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/bawmrp.php:454
 msgid "Will be displayed at bottom of content on home page."
 msgstr "Sera affiché sous le contenu sur la page d'accueil (Home Page)."
 
