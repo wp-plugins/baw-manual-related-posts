@@ -1,4 +1,4 @@
-<?php // 130812
+<?php // 251012
 if ( !defined( 'ABSPATH' ) )
 	die ( 'Please do not access this file directly. Thanks!' );
 ?>
@@ -27,7 +27,7 @@ if ( !defined( 'ABSPATH' ) )
 			<li><a href="http://baw.li/anticsrf">BAW Anti CSRF</a> - <em>Protect your back-end from bad crafted plugin and avoid CSRF vulnerabilities!</em></li>
 			<li><a href="http://baw.li/mpp">BAW Multiple Passwords for Protected Pages</a> - <em>Add more than 1 password for your protected pages, and 2 bonus!</em></li>
 			<li><a href="http://baw.li/ggi">BAW Gravatar Google Image</a> - <em>Add Google Image for default Gravatar photos, use local avatar cache system, and bonus!</em></li>
-			<li><a href="http://baw.li/pvc">BAW Post Views Count</a> - <em>Count views on your posts, pages, CPT. Widget, shortcode included. More than 5000 DL!</em></li>
+			<li><a href="http://baw.li/pvc">BAW Post Views Count</a> - <em>Count views on your posts, pages, CPT. Widget, shortcode included. More than 18000 DL!</em></li>
 			<li><a href="http://baw.li/mrp">BAW Manual Related Posts</a> - <em>Manually choose which posts will be linked to every posts, out auto selection, out random selection, out fake smart selection.!</em></li>
 			<li><a href="http://baw.li/eic">BAW Easy Invitation Codes</a> - <em>Visitors have to enter an invitation code to register on your blog. The easy way!</em></li>
 			<li><a href="http://baw.li/msl">BAW More Secure Login</a> - <em>Add a second authentication layer to your WordPress site.</em></li>

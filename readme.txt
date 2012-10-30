@@ -2,8 +2,8 @@
 Contributors: juliobox
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
 Tags: related post, link post, relation, yarpp
-Requires at least: 3.3.2
-Tested up to: 3.4.1
+Requires at least: 3.4
+Tested up to: 3.5b2
 Stable tag: trunk
 
 Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
@@ -21,10 +21,15 @@ You can manually choose which posts will be linked to every posts, out auto sele
 
 1. Is there some filters ?
 Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
-Also the filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
+The filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
+The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
+The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a <br /> on front, you can hack this.
+The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
+The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
+
 
 1. Is the any actions ?
-Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads. 
+Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after <li>s. 
 
 1. Is there any shortcode ?
 Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
@@ -42,6 +47,15 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.7.4 =
+* 30 oct 2012
+* Many code improvment and optimisations
+* Redo the findPost template and ajax call to do better things :
+* We now can relate non published posts in advance, but only published will be displayed on front-end
+* You can now add the excerpt or content of a related post below his title.
+* You can choose to display or not a custom sentence when no related posts were found (really, no related posts ?)
+* Some other minor changes like a new spinner on ajax call, separated core files, new filters (see FAQ)
 
 = 1.6.4 =
 * 19 oct 2012
