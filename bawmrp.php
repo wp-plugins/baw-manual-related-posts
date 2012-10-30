@@ -11,7 +11,7 @@ Author URI: http://www.boiteaweb.fr
 define( 'BAWMRP__FILE__', __FILE__ );
 define( 'BAWMRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BAWMRP_FULLNAME', 'Manual Related Posts' );
-define( 'BAWMRP_VERSION', '1.7' );
+define( 'BAWMRP_VERSION', '1.7.4' );
 
 add_action( 'plugins_loaded', 'bawmrp_plugin_loaded' );
 function bawmrp_plugin_loaded()
