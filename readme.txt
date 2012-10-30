@@ -38,8 +38,8 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 == Screenshots ==
 
 1. The meta box
-1. Click, you'll get this window (from WP core, not mine!)
-1. Search for a word "Bonjour", and you'll get (with ajax) all posts from selected post type (ajax from WP core!)
+1. Click, you'll get this window
+1. Search for a word "Bonjour", and you'll get (with ajax) all posts from selected post type
 1. Select it, linked!
 1. NOJS view
 1. Drag and Drop supported
