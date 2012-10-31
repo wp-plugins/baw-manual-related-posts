@@ -48,6 +48,10 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 
 == Changelog ==
 
+= 1.7.6 =
+* 31 oct 2012
+* Sorry, a error_reporting(-1) was present.
+
 = 1.7.5 =
 * 31 oct 2012
 * PHP warning fix
