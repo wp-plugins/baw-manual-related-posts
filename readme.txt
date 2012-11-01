@@ -9,7 +9,9 @@ Stable tag: trunk
 Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
 
 == Description ==
-You can manually choose which posts will be linked to every posts, out auto selection, out random selection, out fake smart selection. Just click "Add related posts", search for post my title/content, click, add. Done, post linked ! (FR/EN/HU, NOJS supported)
+You can manually choose which posts have to be be linked to every posts.
+Just click "Add related posts", search for a post, click, add. Done, post linked ! (FR/EN, NOJS supported)
+Check the FAQ and Support if needed ;)
 
 == Installation ==
 
@@ -19,7 +21,7 @@ You can manually choose which posts will be linked to every posts, out auto sele
 
 == Frequently Asked Questions ==
 
-1. Is there some filters ?
+1. Is there some filters?
 Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
 The filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
 The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
@@ -28,12 +30,17 @@ The filter "bawmrp_no_thumb" can be used to change the default "no thumb" pictur
 The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
 
 
-1. Is the any actions ?
+1. Is the any actions?
 Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after <li>s. 
 
-1. Is there any shortcode ?
+1. Is there any shortcode?
 Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
 `<?php echo do_shortcode( '[manual_related_posts]' ) ; ?>` or add directly in any post/page [manual_related_posts]
+
+1. How works the cache system?
+Do i really have to answer this? Ok, like all other cache system, the first time you open a page, data are stored into a cache system (DB if you do not have a real cache plugin), and when the time (1 day by default) is over, a new cache replace the old one.
+The cache is changed when you change the options or when you add a manual post.
+If you want to test without cache, set "0" days.
 
 == Screenshots ==
 
@@ -47,6 +54,14 @@ Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any ph
 1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.7.7 =
+* 01 nov 2012
+* HTML now allowed in front-end titles
+* Fix warnings (i hope this time)
+* You can set "0" days of cache if you want to correctly sets up the plugin, i suggest you at least 1 day cache when done.
+* Bonus: The best rage user of all time about previous bugs: @happyweb http://baw.li/db/rageweb.png
+* Bonus for @happyweb: transports-en-commun.info is not allowed to use the plugin. You win.
 
 = 1.7.6 =
 * 31 oct 2012
