@@ -5,7 +5,6 @@ if( !defined( 'ABSPATH' ) )
 add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
 add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 
-
 add_filter( 'the_content', 'bawmrp_the_content' );
 function bawmrp_the_content( $content='' )
 {
@@ -18,9 +17,10 @@ function bawmrp_the_content( $content='' )
 		$transient_name = 'bawmrp_' . $post->ID . '_' . substr( md5( $ids_manual . serialize( $bawmrp_options ) ), 0, 12 );
 		if( $contents = get_transient( $transient_name ) ):
 			extract( $contents );
+			$list = !empty( $list ) && is_array( $list ) ? $list : array( '<ul><li>' . $bawmrp_options['display_no_posts_text'] . '</li></ul>' );
 			if( $bawmrp_options['random_posts'] == 'on' )
-				shuffle( $list );
-			$final = $content . $head . implode( "\n", $list ) . $foot;
+				@shuffle( $list );
+			$final = $content . $head . @implode( "\n", $list ) . $foot;
 			$content = apply_filters( 'bawmrp_posts_content', $final, $content, $head, $list, $foot );
 			return $content;
 		endif;
@@ -35,13 +35,13 @@ function bawmrp_the_content( $content='' )
 				shuffle( $ids );
 			if( (int)$bawmrp_options['max_posts']>0 && count( $ids )>(int)$bawmrp_options['max_posts'] )
 				$ids = array_slice( $ids, 0, (int)$bawmrp_options['max_posts'] );
-			$head = '<div class="bawmrp"><h3>' . esc_html( $head_title ) . '</h3><ul>';
+			$head = '<div class="bawmrp"><h3>' . $head_title . '</h3><ul>';
 			do_action( 'bawmrp_first_li' );
 			$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:180px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
 			foreach( $ids as $id ):
 				if( in_array( $id, $ids_manual ) )
 					$class = 'bawmrp_manual';
-				elseif( in_array( $id, $ids_sticky ) && $bawmrp_options['sticky_posts']=='on' )
+				elseif( in_array( $id,  $bawmrp_options['sticky_posts']=='on' && get_option( 'sticky_posts' ) ) )
 					$class = 'bawmrp_sticky';
 				elseif( in_array( $id, $ids_auto ) )
 					$class = 'bawmrp_auto';

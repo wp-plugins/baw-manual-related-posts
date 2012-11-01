@@ -16,6 +16,7 @@ function bawmrp_init()
 				'in_homepage' => '',
 				'max_posts' => 0,
 				'random_posts' => false,
+				'recent_posts' => false,
 				'random_order' => false,
 				'auto_posts' => 'none',
 				'cache_time' => 1

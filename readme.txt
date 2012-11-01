@@ -55,6 +55,11 @@ If you want to test without cache, set "0" days.
 
 == Changelog ==
 
+= 1.7.8 =
+* 01 nov 2012
+* FR translation typo
+* PHP warning fix
+
 = 1.7.7 =
 * 01 nov 2012
 * HTML now allowed in front-end titles

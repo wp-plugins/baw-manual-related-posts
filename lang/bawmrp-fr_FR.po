@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-30 16:37+0100\n"
+"POT-Creation-Date: 2012-11-01 13:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juliobox <juliobosk@gmail.com>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -147,7 +147,7 @@ msgstr "Utiliser les articles récents pour remplir le max articles ?"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/backend-noajax.inc.php:153
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/bothend-noajax.inc.php:15
 msgid "No related posts found!"
@@ -164,7 +164,7 @@ msgstr "Sera affiché sous le contenu."
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:15
 msgid "So ironic ... auto related posts in manual related posts ;)"
-msgstr "Quelle ironie ... des articles en relations automatisés dans les articles en relations manuels ;)"
+msgstr "Quelle ironie ... des articles en relations automatisés dans les articles en relation manuels ;)"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:25
 #, php-format
@@ -197,7 +197,7 @@ msgstr "N'utilisez que les catégories."
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:57
 msgid "How many days do we have to cache results ? (min. 1)"
-msgstr "Combien de jours devont nous mettre en cache les résultats ? (mini. 1)"
+msgstr "Combien de jours devons nous mettre en cache les résultats ? (mini. 1)"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:65
 msgid "Including manual and auto related posts. (0 = No limit)"
@@ -225,11 +225,11 @@ msgstr "Pas de contenu. Vous pouvez ajouter le votre en utilisant le filtre <cod
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:101
 msgid "Print the post excerpt. <span style=\"font-size: smaller\">(This adds 1 more query per related posts. I suggest you to active HTML cache, see below.)</span>"
-msgstr "Afficher le résumé (excerpt) de l'article. <span style=\"font-size: smaller\">(Ceci ajoute 1 requête de plus par article en ralation. Je suggère d'activer le cache, voir plus bas.)</span>"
+msgstr "Afficher le résumé (excerpt) de l'article. <span style=\"font-size: smaller\">(Ceci ajoute 1 requête de plus par article en relation. Je suggère d'activer le cache, voir plus bas.)</span>"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:103
 msgid "Print the post content <span style=\"font-size: smaller\">(This adds 1 more query per related posts. I suggest you to active HTML cache, see below.)</span>"
-msgstr "Afficher le contenu (content) de l'article. <span style=\"font-size: smaller\">(Ceci ajoute 1 requête de plus par article en ralation. Je suggère d'activer le cache, voir plus bas.)</span>"
+msgstr "Afficher le contenu (content) de l'article. <span style=\"font-size: smaller\">(Ceci ajoute 1 requête de plus par article en relation. Je suggère d'activer le cache, voir plus bas.)</span>"
 
 #: c:\Users\Julio\Dropbox\BAW\plugins\baw-manual-related-posts_repo\trunk/inc/setting_fields.inc.php:112
 msgid "List mode."
