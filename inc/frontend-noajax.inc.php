@@ -41,7 +41,7 @@ function bawmrp_the_content( $content='' )
 			foreach( $ids as $id ):
 				if( in_array( $id, $ids_manual ) )
 					$class = 'bawmrp_manual';
-				elseif( in_array( $id,  $bawmrp_options['sticky_posts']=='on' && get_option( 'sticky_posts' ) ) )
+				elseif( $bawmrp_options['sticky_posts']=='on' && in_array( $id, get_option( 'sticky_posts' ) ) )
 					$class = 'bawmrp_sticky';
 				elseif( in_array( $id, $ids_auto ) )
 					$class = 'bawmrp_auto';

@@ -3,7 +3,7 @@
 Plugin Name: BAW Manual Related Posts
 Plugin URI: http://www.boiteaweb.fr
 Description: Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
-Version: 1.7.8
+Version: 1.7.9
 Author: Juliobox
 Author URI: http://www.boiteaweb.fr
 */
@@ -11,7 +11,7 @@ Author URI: http://www.boiteaweb.fr
 define( 'BAWMRP__FILE__', __FILE__ );
 define( 'BAWMRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BAWMRP_FULLNAME', 'Manual Related Posts' );
-define( 'BAWMRP_VERSION', '1.7.8' );
+define( 'BAWMRP_VERSION', '1.7.9' );
 add_action( 'plugins_loaded', 'bawmrp_plugin_loaded' );
 function bawmrp_plugin_loaded()
 {
