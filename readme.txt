@@ -55,6 +55,12 @@ If you want to test without cache, set "0" days.
 
 == Changelog ==
 
+= 1.7.10 =
+* 03 nov 2012
+* FR l10n fixes
+* Fix bug for shortcode
+* Fix bug for text when no posts were find
+
 = 1.7.9 =
 * 01 nov 2012
 * Fix some other warnings

@@ -9,7 +9,7 @@ add_filter( 'the_content', 'bawmrp_the_content' );
 function bawmrp_the_content( $content='' )
 {
 	global $post, $bawmrp_options;
-	if( $bawmrp_options['in_content']!='on' && $content=='' )
+	if( $bawmrp_options['in_content']!='on' && $content!='' )
 		return $content;
 	if( ( is_home() && $bawmrp_options['in_homepage']=='on' ) ||
 		is_singular( $bawmrp_options['post_types'] ) ):
@@ -17,7 +17,11 @@ function bawmrp_the_content( $content='' )
 		$transient_name = 'bawmrp_' . $post->ID . '_' . substr( md5( $ids_manual . serialize( $bawmrp_options ) ), 0, 12 );
 		if( $contents = get_transient( $transient_name ) ):
 			extract( $contents );
-			$list = !empty( $list ) && is_array( $list ) ? $list : array( '<ul><li>' . $bawmrp_options['display_no_posts_text'] . '</li></ul>' );
+			if( empty( $list ) || !is_array( $list ) )
+				if( $bawmrp_options['display_no_posts']=='text' && $bawmrp_options['display_no_posts_text']!='' )
+					$list = array( '<ul><li>' . $bawmrp_options['display_no_posts_text'] . '</li></ul>' );
+				else
+					$list = array();
 			if( $bawmrp_options['random_posts'] == 'on' )
 				@shuffle( $list );
 			$final = $content . $head . @implode( "\n", $list ) . $foot;
