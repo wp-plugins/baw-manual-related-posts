@@ -54,7 +54,7 @@ function bawmrp_field_cache_time()
 {
 	global $bawmrp_options;
 ?>
-	<label><input type="number" name="bawmrp[cache_time]" size="2" maxlength="3" min="1" max="365" value="<?php echo (int)$bawmrp_options['cache_time']; ?>" /> <em><?php _e( 'How many days do we have to cache results ? (min. 1)', 'bawmrp' ); ?></em></label>
+	<label><input type="number" name="bawmrp[cache_time]" size="2" maxlength="3" min="0" max="365" value="<?php echo (int)$bawmrp_options['cache_time']; ?>" /> <em><?php _e( 'How many days do we have to cache results ? (suggested min. 1)', 'bawmrp' ); ?></em></label>
 <?php
 }
 

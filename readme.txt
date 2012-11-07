@@ -55,6 +55,14 @@ If you want to test without cache, set "0" days.
 
 == Changelog ==
 
+= 1.7.12 =
+* 07 nov 2012
+* "0" for cache time wil disable input and output cache. Onyl for DEBUG (or low visited websites)
+
+= 1.7.11 =
+* 05 nov 2012
+* Bug fix when you use "0" for cache time, if you still encounter display problem, you have to manually delete all transient, the name start with "_transient_bawmrp_" sorry
+
 = 1.7.10 =
 * 03 nov 2012
 * FR l10n fixes

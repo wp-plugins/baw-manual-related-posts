@@ -15,7 +15,7 @@ function bawmrp_the_content( $content='' )
 		is_singular( $bawmrp_options['post_types'] ) ):
 		$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
 		$transient_name = 'bawmrp_' . $post->ID . '_' . substr( md5( $ids_manual . serialize( $bawmrp_options ) ), 0, 12 );
-		if( $contents = get_transient( $transient_name ) ):
+		if( (int)$bawmrp_options['cache_time']>0 && $contents = get_transient( $transient_name ) ):
 			extract( $contents );
 			if( empty( $list ) || !is_array( $list ) )
 				if( $bawmrp_options['display_no_posts']=='text' && $bawmrp_options['display_no_posts_text']!='' )
@@ -86,6 +86,7 @@ function bawmrp_the_content( $content='' )
 			$content = apply_filters( 'bawmrp_posts_content', $final, $content, $head, $list, $foot );
 		endif;
 	endif;
-	set_transient( $transient_name, array( 'head'=>$head, 'list'=>$list, 'foot'=>$foot ), $bawmrp_options['cache_time']*1*60*60*24 );
+	if( (int)$bawmrp_options['cache_time']>0 )
+		set_transient( $transient_name, array( 'head'=>$head, 'list'=>$list, 'foot'=>$foot ), $bawmrp_options['cache_time']*1*60*60*24 );
 	return $content;
 }
