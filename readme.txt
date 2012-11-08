@@ -55,6 +55,10 @@ If you want to test without cache, set "0" days.
 
 == Changelog ==
 
+= 1.7.13 =
+* 08 nov 2012
+* Add a function "bawmrp_get_all_related_posts( $post )" to get all posts objects if needed for you in a theme or plugin, cache data done too in this function
+
 = 1.7.12 =
 * 07 nov 2012
 * "0" for cache time wil disable input and output cache. Onyl for DEBUG (or low visited websites)

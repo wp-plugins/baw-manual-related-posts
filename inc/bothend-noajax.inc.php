@@ -24,6 +24,19 @@ function bawmrp_init()
 	$bawmrp_options = wp_parse_args( get_option( 'bawmrp' ), $bawmrp_args );
 }
 
+function bawmrp_get_all_related_posts( $post )
+{
+	global $bawmrp_options;
+	if( !$related_posts = get_transient( 'bawmrp_allrelatedposts_' . $post->ID ) ):
+		$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
+		$ids_auto = $bawmrp_options['auto_posts']!='none' ||  $bawmrp_options['sticky_posts']=='on' ||  $bawmrp_options['recent_posts']=='on' ? bawmrp_get_related_posts_auto( $post ) : array();
+		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_auto ) );
+		$related_posts = get_posts( array( 'include' => $ids ) );
+		set_transient( 'bawmrp_allrelatedposts_' . $post->ID, $related_posts, $bawmrp_options['cache_time']*60*60 );
+	endif;
+	return $related_posts;
+}
+
 function bawmrp_get_related_posts( $post_id, $only_published=true )
 {
 	$ids = get_post_meta( $post_id, '_yyarpp', true );

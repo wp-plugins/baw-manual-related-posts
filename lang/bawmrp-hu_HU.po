@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-21 14:18+0100\n"
+"POT-Creation-Date: 2012-11-05 16:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Tibor Takács <tyborg@tyborg.hu>\n"
 "Language-Team: Tibor Takács <tyborg@tyborg.hu>\n"
@@ -16,54 +16,263 @@ msgstr ""
 "X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../bawmrp.php:38
+#: ../inc/backend-ajax.inc.php:42
+msgid "Title"
+msgstr "Cím"
+
+#: ../inc/backend-ajax.inc.php:42
+msgid "Type"
+msgstr "Típus"
+
+#: ../inc/backend-ajax.inc.php:42
+msgid "Date"
+msgstr "Közzétéve"
+
+#: ../inc/backend-ajax.inc.php:42
+msgid "Status"
+msgstr "Állapot"
+
+#: ../inc/backend-ajax.inc.php:48
+msgid "Published"
+msgstr "Közzétéve"
+
+#: ../inc/backend-ajax.inc.php:51
+msgid "Scheduled"
+msgstr "Ütemezve"
+
+#: ../inc/backend-ajax.inc.php:54
+msgid "Pending Review"
+msgstr "Függőben lévő"
+
+#: ../inc/backend-ajax.inc.php:57
+msgid "Draft"
+msgstr "Vázlat"
+
+#: ../inc/backend-ajax.inc.php:64
+msgid "Y/m/d"
+msgstr "Y.m.d."
+
+#: ../inc/backend-noajax.inc.php:10
+msgid "Find related posts"
+msgstr "Kapcsolódó bejegyzések keresése"
+
+#: ../inc/backend-noajax.inc.php:16 ../inc/backend-noajax.inc.php:18
+msgid "Search"
+msgstr "Keresés"
+
+#: ../inc/backend-noajax.inc.php:34
+msgid "Close"
+msgstr "Bezárás"
+
+#: ../inc/backend-noajax.inc.php:35
+msgid "Select"
+msgstr "Választás"
+
+#: ../inc/backend-noajax.inc.php:59
 msgid "Add a related post"
 msgstr "Hozzáadás"
 
-#: ../bawmrp.php:39
+#: ../inc/backend-noajax.inc.php:60
+msgid "Clear all"
+msgstr "Összes törlése"
+
+#: ../inc/backend-noajax.inc.php:61
 msgid "Add posts IDs from posts you want to relate, comma separated."
 msgstr "Kapcsolódó bejegyzés ID-k hozzáadása, vesszővel elválasztva."
 
-#: ../bawmrp.php:121
+#: ../inc/backend-noajax.inc.php:110
 msgid "Settings"
 msgstr "Beállítások"
 
-#: ../bawmrp.php:151
+#: ../inc/backend-noajax.inc.php:138
 msgid "General"
 msgstr "Általános"
 
-#: ../bawmrp.php:152
-msgid "Display related posts in post content"
-msgstr "Kapcsolódó cikkek megjelenítése a bejegyzésben"
+#: ../inc/backend-noajax.inc.php:139
+msgid "How many posts maximum"
+msgstr "Maximális bejegyzések száma"
 
-#: ../bawmrp.php:153
-msgid "Display related posts in home page too"
-msgstr "Kapcsolódó cikkek megjelenítése a honlapon is"
+#: ../inc/backend-noajax.inc.php:140
+msgid "Randomize related posts"
+msgstr "Kapcsolódó bejegyzések véletlenszerűsítése"
 
-#: ../bawmrp.php:154
+#: ../inc/backend-noajax.inc.php:141
 msgid "Select post types"
 msgstr "Bejegyzés típusok kiválasztása"
 
-#: ../bawmrp.php:155
+#: ../inc/backend-noajax.inc.php:142
+msgid "Caching data"
+msgstr "Gyorsítótár"
+
+#: ../inc/backend-noajax.inc.php:143
+msgid "Display"
+msgstr "Megjelenítés"
+
+#: ../inc/backend-noajax.inc.php:144
+msgid "Display related posts in post content"
+msgstr "Kapcsolódó cikkek megjelenítése a bejegyzésben"
+
+#: ../inc/backend-noajax.inc.php:145
+msgid "Display related posts in home page too"
+msgstr "Kapcsolódó cikkek megjelenítése a honlapon is"
+
+#: ../inc/backend-noajax.inc.php:146
+msgid "Display mode"
+msgstr "Megjelenítés módja"
+
+#: ../inc/backend-noajax.inc.php:147
+msgid "Display content?"
+msgstr "Tartalom megjelenítése?"
+
+#: ../inc/backend-noajax.inc.php:148
+msgid "Display something is no related posts are found?"
+msgstr "Jelenjen meg valami, ha nem találunk kapcsolódó bejegyzést?"
+
+#: ../inc/backend-noajax.inc.php:149
+msgid "Auto posts"
+msgstr "Automatikus bejegyzések"
+
+#: ../inc/backend-noajax.inc.php:150
+msgid "Use auto related posts to fill the max posts ?"
+msgstr ""
+"Használjunk automatikus kapcsolódó bejegyzéseket, hogy kitöltsük a maximális "
+"bejegyzések számát?"
+
+#: ../inc/backend-noajax.inc.php:151
+msgid "Use sticky posts to fill the max posts ?"
+msgstr ""
+"Használjunk 'ragadós' bejegyzéseket, hogy kitöltsük a maximális bejegyzések "
+"számát?"
+
+#: ../inc/backend-noajax.inc.php:152
+msgid "Use recent posts to fill the max posts ?"
+msgstr ""
+"Használjunk új bejegyzéseket, hogy kitöltsük a maximális bejegyzések számát?"
+
+#: ../inc/backend-noajax.inc.php:153
 msgid "About"
 msgstr "Névjegy"
 
-#: ../bawmrp.php:177 ../bawmrp.php:212
+#: ../inc/bothend-noajax.inc.php:15
+msgid "No related posts found!"
+msgstr "Nincsenek kapcsolódó cikkek!"
+
+#: ../inc/frontend-noajax.inc.php:33 ../inc/setting_fields.inc.php:23
 msgid "You may also like:"
 msgstr "Kedvelheted ezt is:"
 
-#: ../bawmrp.php:179
+#: ../inc/setting_fields.inc.php:9
+msgid "Will be displayed at bottom of content."
+msgstr "A tartalom alján jelenik meg."
+
+#: ../inc/setting_fields.inc.php:15
+msgid "So ironic ... auto related posts in manual related posts ;)"
+msgstr ""
+"Milyen ironikus... automatikus kapcsolódó bejegyzések a Manual Related Posts-"
+"ban ;)"
+
+#: ../inc/setting_fields.inc.php:25
 #, php-format
 msgid "Front-end title for %s:"
 msgstr "Megjeleníthető felírat %s esetén:"
 
-#: ../bawmrp.php:187
-msgid "Will be displayed at bottom of content."
-msgstr "A tartalom alján lesz megjelenítve."
+#: ../inc/setting_fields.inc.php:33
+msgid "Do not show anything."
+msgstr "Ne mutassunk semmit."
 
-#: ../bawmrp.php:195
+#: ../inc/setting_fields.inc.php:35
+msgid "HTML allowed."
+msgstr "HTML megengedett."
+
+#: ../inc/setting_fields.inc.php:43
+msgid "No thank you, i only need my manual posts."
+msgstr "Köszönöm, nem, csak a manuális bejegyzésekre van szükségem."
+
+#: ../inc/setting_fields.inc.php:45
+msgid "Use tags and categories to find related posts."
+msgstr "Címkék és kategóriák használtata."
+
+#: ../inc/setting_fields.inc.php:47
+msgid "Use only tags."
+msgstr "Csak címkék használata."
+
+#: ../inc/setting_fields.inc.php:49
+msgid "Use ony categories."
+msgstr "Csak kategóriák használata."
+
+#: ../inc/setting_fields.inc.php:57
+msgid "How many days do we have to cache results ? (min. 1)"
+msgstr "Hány napig tároljuk az eredmény a gyorsítótárban? (min. 1)"
+
+#: ../inc/setting_fields.inc.php:65
+msgid "Including manual and auto related posts. (0 = No limit)"
+msgstr ""
+"Az érték tartalmazza a manuális és az automatikus kapcsolódó bejegyzéseket "
+"is. (0 = nincs korlát)"
+
+#: ../inc/setting_fields.inc.php:73
+msgid "You can randomize the display for posts order."
+msgstr "Bejegyzések megjelenítése véletlenszerű sorrendben."
+
+#: ../inc/setting_fields.inc.php:74
+msgid "You can randomize the posts request."
+msgstr "Bejegyzés kérések véletlenszerűen."
+
+#: ../inc/setting_fields.inc.php:82
+msgid "Sticky posts will be included if needed."
+msgstr "'Ragadós' bejegyzések használata, ha szükséges."
+
+#: ../inc/setting_fields.inc.php:90
+msgid "Recents posts will be included if needed."
+msgstr "Új bejegyzések használata, ha szükséges."
+
+#: ../inc/setting_fields.inc.php:99
+msgid ""
+"No content. You can add you own using the <code>bawmrp_more_content</code> "
+"filter hook."
+msgstr ""
+"Nincs tartalom. Saját magad is hozzáadhatod a <code>bawmrp_more_content</"
+"code> szűrő kód hozzáadásával."
+
+#: ../inc/setting_fields.inc.php:101
+msgid ""
+"Print the post excerpt. <span style=\"font-size: smaller\">(This adds 1 more "
+"query per related posts. I suggest you to active HTML cache, see below.)</"
+"span>"
+msgstr ""
+"Bejegyzés kivonatának megjelenítése. <span style=\"font-size: smaller\">(Ez "
+"eggyel több lekérdezést jelent bejegyzésenként. Javaslom, hogy kapcsolt be a "
+"HTML gyorsítótárat, lásd feljebb.)</span>"
+
+#: ../inc/setting_fields.inc.php:103
+msgid ""
+"Print the post content <span style=\"font-size: smaller\">(This adds 1 more "
+"query per related posts. I suggest you to active HTML cache, see below.)</"
+"span>"
+msgstr ""
+"Bejegyzés tartalmának megjelenítése. <span style=\"font-size: smaller\">(Ez "
+"eggyel több lekérdezést jelent bejegyzésenként. Javaslom, hogy kapcsolt be a "
+"HTML gyorsítótárat, lásd feljebb.)</span>"
+
+#: ../inc/setting_fields.inc.php:112
+msgid "List mode."
+msgstr "Lista mód."
+
+#: ../inc/setting_fields.inc.php:114
+msgid "Thumb mode."
+msgstr "Bélyegkép mód."
+
+#: ../inc/setting_fields.inc.php:116
+msgid ""
+"Shortcode mode. Use <code>&lt;?php echo do_shortcode"
+"( '[manual_related_posts]' ); ?&gt</code> to pull the list out."
+msgstr ""
+"Hivatkozási mód. Használd a <code>&lt;?php echo do_shortcode"
+"( '[manual_related_posts]' ); ?&gt</code> kódot a lista megjelenítéséhez."
+
+#: ../inc/setting_fields.inc.php:124
 msgid "Will be displayed at bottom of content on home page."
-msgstr "A tartalom alján lesz megjelenítve a honlapon."
+msgstr "A tartalom alján jelenik meg az oldalon."
 
 #~ msgid "Head title for front-end (if previous checkbox is checked)"
 #~ msgstr ""

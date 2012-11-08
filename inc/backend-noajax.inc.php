@@ -155,8 +155,8 @@ function bawmrp_settings_page()
 
 ?>
 	<div class="wrap">
-	<?php screen_icon( 'options-general' ); ?>
-	<h2><?php echo BAWMRP_FULLNAME; ?> <?php echo BAWMRP_VERSION; ?></h2>
+	<div id="icon-bawmrp" class="icon32" style="background: url(<?php echo BAWMRP_PLUGIN_URL; ?>img/icon32.png) 0 0 no-repeat;"><br/></div> 
+	<h2><?php echo BAWMRP_FULLNAME; ?> <small>v<?php echo BAWMRP_VERSION; ?></small></h2>
 
 	<form action="options.php" method="post">
 		<?php settings_fields( 'bawmrp_settings' ); ?>

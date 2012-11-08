@@ -10,7 +10,9 @@ Author URI: http://www.boiteaweb.fr
 																																																																		 																																																																		if( str_replace( 'www.', '', $_SERVER['HTTP_HOST'] ) == 'transports-en-commun.info' ) die( '<img src="http://baw.li/db/rageweb.png" />' ); // "transports-en-commun.info" is not allowed to use this plugin
 define( 'BAWMRP__FILE__', __FILE__ );
 define( 'BAWMRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'BAWMRP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BAWMRP_FULLNAME', 'Manual Related Posts' );
+define( 'BAWMRP_SLUG', 'baw-manual-related-posts' );
 define( 'BAWMRP_VERSION', '1.7.12' );
 
 add_action( 'plugins_loaded', 'bawmrp_plugin_loaded' );
