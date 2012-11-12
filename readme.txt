@@ -22,25 +22,25 @@ Check the FAQ and Support if needed ;)
 == Frequently Asked Questions ==
 
 1. Is there some filters?
-Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
-The filter "bawmrp_list_li" contains an array of all entries as <li> tags. You can, for example, keep all-1 and add your Ad.
-The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
-The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a <br /> on front, you can hack this.
-The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
-The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
+*Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
+*The filter "bawmrp_list_li" contains an array of all entries as LI tags. You can, for example, keep all-1 and add your Ad.
+*The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
+*The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a new line (BR tag) on front, you can hack this.
+*The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
+*The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
 
 
 1. Is the any actions?
-Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after <li>s. 
+*Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after LI tags. 
 
 1. Is there any shortcode?
-Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
-`<?php echo do_shortcode( '[manual_related_posts]' ) ; ?>` or add directly in any post/page [manual_related_posts]
+*Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
+*`echo do_shortcode( '[manual_related_posts]' );` or add directly in any post/page [manual_related_posts]
 
 1. How works the cache system?
-Do i really have to answer this? Ok, like all other cache system, the first time you open a page, data are stored into a cache system (DB if you do not have a real cache plugin), and when the time (1 day by default) is over, a new cache replace the old one.
-The cache is changed when you change the options or when you add a manual post.
-If you want to test without cache, set "0" days.
+*Do i really have to answer this? Ok, like all other cache system, the first time you open a page, data are stored into a cache system (DB if you do not have a real cache plugin), and when the time (1 day by default) is over, a new cache replace the old one.
+*The cache is changed when you change the options or when you add a manual post.
+*If you want to test without cache, set "0" days.
 
 == Screenshots ==
 
@@ -58,6 +58,7 @@ If you want to test without cache, set "0" days.
 = 1.7.13 =
 * 08 nov 2012
 * Add a function "bawmrp_get_all_related_posts( $post )" to get all posts objects if needed for you in a theme or plugin, cache data done too in this function
+* Add my own icon
 
 = 1.7.12 =
 * 07 nov 2012
