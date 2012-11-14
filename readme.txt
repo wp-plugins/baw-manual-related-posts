@@ -62,6 +62,7 @@ Check the FAQ and Support if needed ;)
 * New option, if your theme does not support posts thumbnails you can choose to grab the first image from the post. props MadtownLems
 * If the user can now "edit_themes" the hint "You can use a shortcode..." won't be displayed. props MadtownLems
 * Fix a bug that you can add related posts from another post type but was not displayed. Thanks to kakawajazz
+* Italian translation added, thanks to Manolo Macchetta
 
 = 1.7.13 =
 * 08 nov 2012
