@@ -55,8 +55,12 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.7.16 =
+* 14 nov 2012
+* Forgot the about file ...
+
 = 1.7.15 =
-* 15 nov 2012
+* 14 nov 2012
 * Try to fix a bug that i do not trigger :|
 
 = 1.7.14 =
