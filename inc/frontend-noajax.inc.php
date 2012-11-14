@@ -6,7 +6,7 @@ if( !function_exists( 'baw_first_image') ):
 	function baw_first_image( $post, $default ) {
 		if( is_null( $post ) )
 			return $default;
-		$post = is_object( $post ) ? $post : get_post( (int)$post );
+		$post = !is_object( $post ) && (int)$post>0 ? get_post( $post ) : $post;
 		if( $post )
 			$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
 		$first_img = isset( $matches[1][0] ) ? $matches[1][0] : '';
