@@ -14,7 +14,7 @@ function bawmrp_init()
 				'display_no_posts' => 'none',
 				'display_no_posts_text' => __( 'No related posts found!', 'bawmrp' ),
 				'in_homepage' => '',
-				'max_posts' => 0,
+				'max_posts' => 4,
 				'random_posts' => false,
 				'recent_posts' => false,
 				'random_order' => false,
@@ -31,7 +31,7 @@ function bawmrp_get_all_related_posts( $post )
 		$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
 		$ids_auto = $bawmrp_options['auto_posts']!='none' ||  $bawmrp_options['sticky_posts']=='on' ||  $bawmrp_options['recent_posts']=='on' ? bawmrp_get_related_posts_auto( $post ) : array();
 		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_auto ) );
-		$related_posts = get_posts( array( 'include' => $ids ) );
+		$related_posts = get_posts( array( 'include' => $ids, 'post_type' => $bawmrp_options['post_types'] ) );
 		set_transient( 'bawmrp_allrelatedposts_' . $post->ID, $related_posts, $bawmrp_options['cache_time']*60*60 );
 	endif;
 	return $related_posts;
@@ -39,9 +39,10 @@ function bawmrp_get_all_related_posts( $post )
 
 function bawmrp_get_related_posts( $post_id, $only_published=true )
 {
+	global $bawmrp_options;
 	$ids = get_post_meta( $post_id, '_yyarpp', true );
 	if( $only_published )
-		$ids = !empty( $ids ) != '' ? implode( ',', wp_parse_id_list( wp_list_pluck( get_posts( 'include=' . $ids ), 'ID' ) ) ) : array();
+		$ids = !empty( $ids ) != '' ? implode( ',', wp_parse_id_list( wp_list_pluck( get_posts( array( 'include' => $ids, 'post_type' => $bawmrp_options['post_types'] ) ), 'ID' ) ) ) : array();
 	else
 		$ids = !empty( $ids ) != '' ? implode( ',', wp_parse_id_list( $ids ) ) : array();
 	return $ids;

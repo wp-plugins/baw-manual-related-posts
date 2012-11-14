@@ -150,9 +150,12 @@ function bawmrp_settings_page()
 		add_settings_field( 'bawmrp_field_auto_posts', __( 'Use auto related posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_auto_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
 		add_settings_field( 'bawmrp_field_sticky_posts', __( 'Use sticky posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_sticky_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
 		add_settings_field( 'bawmrp_field_recent_posts', __( 'Use recent posts to fill the max posts ?', 'bawmrp' ), 'bawmrp_field_recent_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
-	add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_false', 'bawmrp_settings3' );
-		add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( BAWMRP__FILE__ ) . '/about.php' );" ), 'bawmrp_settings3', 'bawmrp_settings_page' );
+	if( !apply_filters( 'hide_baw_about', false ) ):
+		add_settings_section( 'bawmrp_settings_page', __( 'About', 'bawmrp' ), '__return_false', 'bawmrp_settings3' );
+			add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.inc.php' );" ), 'bawmrp_settings3', 'bawmrp_settings_page' );
+	endif;
 
+include( dirname( __FILE__ ) . '/setting_fields.inc.php' );
 ?>
 	<div class="wrap">
 	<div id="icon-bawmrp" class="icon32" style="background: url(<?php echo BAWMRP_PLUGIN_URL; ?>img/icon32.png) 0 0 no-repeat;"><br/></div> 
@@ -165,9 +168,7 @@ function bawmrp_settings_page()
 		<div class="tabs"><?php do_settings_sections( 'bawmrp_settings4' ); ?></div>
 		<div class="tabs"><?php do_settings_sections( 'bawmrp_settings2' ); ?></div>
 		<?php submit_button(); ?>
-		<?php do_settings_sections( 'bawmrp_settings3' ); ?>
+		<?php if( !apply_filters( 'hide_baw_about', false ) ) do_settings_sections( 'bawmrp_settings3' ); ?>
 	</form>
 <?php
 }
-
-include( dirname( __FILE__ ) . '/setting_fields.inc.php' );

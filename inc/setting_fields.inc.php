@@ -112,8 +112,15 @@ function bawmrp_field_in_content_mode()
 	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'list' ); ?> value="list" /> <em><?php _e( 'List mode.', 'bawmrp' ); ?></em></label>
 	<br />
 	<label><input type="radio" name="bawmrp[in_content_mode]" <?php checked( $bawmrp_options['in_content_mode'], 'thumb' ); ?> value="thumb" /> <em><?php _e( 'Thumb mode.', 'bawmrp' ); ?></em></label>
+	<?php if( !current_theme_supports( 'post-thumbnails' ) ): ?>
 	<br />
-	<em><?php _e( 'Shortcode mode. Use <code>&lt;?php echo do_shortcode( \'[manual_related_posts]\' ); ?&gt</code> to pull the list out.', 'bawmrp' ); ?></em>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label><input type="checkbox" name="bawmrp[first_image]" <?php checked( $bawmrp_options['first_image'], 'on' ); ?> /> <em><?php _e( 'Your theme does not support posts thumbnails, check this to grab the first post image instead.', 'bawmrp' ); ?></em></label>
+	<?php endif; ?>
+	<?php if( current_user_can( 'edit_themes' ) ): ?>
+	<br />
+	<em><?php _e( 'You can also use a Shortcode. Use <code>&lt;?php echo do_shortcode( \'[manual_related_posts]\' ); ?&gt</code> to pull the list out.', 'bawmrp' ); ?></em>
+	<?php endif; ?>
 <?php
 }
 

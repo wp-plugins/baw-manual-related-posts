@@ -2,6 +2,18 @@
 if( !defined( 'ABSPATH' ) )
 	die( 'Cheatin\' uh?' );
 
+if( !function_exists( 'baw_first_image') ):
+	function baw_first_image( $post, $default ) {
+		if( is_null( $post ) )
+			return $default;
+		$post = is_object( $post ) ? $post : get_post( (int)$post );
+		if( $post )
+			$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
+		$first_img = isset( $matches[1][0] ) ? $matches[1][0] : '';
+		return !empty( $first_img ) ? $first_img : $default;
+	}	
+endif;
+
 add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
 add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 
@@ -65,7 +77,10 @@ function bawmrp_the_content( $content='' )
 				else:
 					$no_thumb = apply_filters( 'bawmrp_no_thumb', admin_url( '/images/wp-badge.png' ), $id );
 					$thumb_size = apply_filters( 'bawmrp_thumb_size', array( 100, 100 ) );
-					$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, $thumb_size ) : '<img src="' . $no_thumb . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
+					if( !current_theme_supports( 'post-thumbnails' ) )
+						$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, $thumb_size ) : '<img src="' . $no_thumb . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
+					else
+						$thumb = '<img src="' . baw_first_image( $bawmrp_options['first_image']=='on' ? $id : null, $no_thumb ) . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
 					$list[] = '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
 				endif;
 			endforeach;

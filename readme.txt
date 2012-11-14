@@ -28,7 +28,7 @@ Check the FAQ and Support if needed ;)
 *The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a new line (BR tag) on front, you can hack this.
 *The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
 *The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
-
+*The filter "hide_baw_about" (works in all my plugins) can be use to avoid the inclusion of my "about" file (displayed at bottom of settings page)
 
 1. Is the any actions?
 *Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after LI tags. 
@@ -54,6 +54,14 @@ Check the FAQ and Support if needed ;)
 1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.7.14 =
+* 14 nov 2012
+* Add a filter "hide_baw_about" (works in all my plugins) to avoid the inclusion of my About section in settings page. props MadtownLems
+* Default "number of posts" is now "4" intead of "0" (no limit!). props MadtownLems
+* New option, if your theme does not support posts thumbnails you can choose to grab the first image from the post. props MadtownLems
+* If the user can now "edit_themes" the hint "You can use a shortcode..." won't be displayed. props MadtownLems
+* Fix a bug that you can add related posts from another post type but was not displayed. Thanks to kakawajazz
 
 = 1.7.13 =
 * 08 nov 2012
