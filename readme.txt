@@ -55,6 +55,10 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.7.17 =
+* 11 dev 2012
+* Thumbnails were not displayed, sorry.
+
 = 1.7.16 =
 * 14 nov 2012
 * Forgot the about file ...

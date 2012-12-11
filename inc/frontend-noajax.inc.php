@@ -77,7 +77,7 @@ function bawmrp_the_content( $content='' )
 				else:
 					$no_thumb = apply_filters( 'bawmrp_no_thumb', admin_url( '/images/wp-badge.png' ), $id );
 					$thumb_size = apply_filters( 'bawmrp_thumb_size', array( 100, 100 ) );
-					if( !current_theme_supports( 'post-thumbnails' ) )
+					if( current_theme_supports( 'post-thumbnails' ) )
 						$thumb = has_post_thumbnail( $id ) ? get_the_post_thumbnail( $id, $thumb_size ) : '<img src="' . $no_thumb . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
 					else
 						$thumb = '<img src="' . baw_first_image( $bawmrp_options['first_image']=='on' ? $id : null, $no_thumb ) . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
