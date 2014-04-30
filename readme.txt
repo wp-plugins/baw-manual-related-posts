@@ -2,15 +2,19 @@
 Contributors: juliobox
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
 Tags: related post, link post, relation, yarpp
-Requires at least: 3.4
-Tested up to: 3.5b2
+Requires at least: 3.5
+Tested up to: 3.9
 Stable tag: trunk
 
 Set related posts manually but easily with great ergonomics! Stop displaying auto/random related posts!
 
 == Description ==
 You can manually choose which posts have to be be linked to every posts.
+
 Just click "Add related posts", search for a post, click, add. Done, post linked ! (FR/EN, NOJS supported)
+
+New: Posts are linked to each others, example if you add on "Post A" the "Post B", then the "Post B" will be linked to "Post A" automatically, even if you can not see it in the backend.
+
 Check the FAQ and Support if needed ;)
 
 == Installation ==
@@ -22,25 +26,25 @@ Check the FAQ and Support if needed ;)
 == Frequently Asked Questions ==
 
 1. Is there some filters?
-*Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
-*The filter "bawmrp_list_li" contains an array of all entries as LI tags. You can, for example, keep all-1 and add your Ad.
-*The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
-*The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a new line (BR tag) on front, you can hack this.
-*The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
-*The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
-*The filter "hide_baw_about" (works in all my plugins) can be use to avoid the inclusion of my "about" file (displayed at bottom of settings page)
+* Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
+* The filter "bawmrp_list_li" contains an array of all entries as LI tags. You can, for example, keep all-1 and add your Ad.
+* The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
+* The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a new line (BR tag) on front, you can hack this.
+* The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
+* The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
+* The WP filter "the_title" can be target in the related loop using the globale $var "$in_bawmrp_loop" set to TRUE if in the loop, not set if not.
 
-1. Is the any actions?
-*Yes, "bawmrp_first_li" and "bawmrp_last_li" can be used to add Ads for example, triggered before and after LI tags. 
+1. Is there any actions?
+* Yes, "bawmrp_first_li" "bawmrp_li" (with index param), and "bawmrp_last_li" can be used to add Ads for example, triggered before, in, and after LI tags. 
 
 1. Is there any shortcode?
-*Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
-*`echo do_shortcode( '[manual_related_posts]' );` or add directly in any post/page [manual_related_posts]
+* Yes, "bawmrp" and "manual_related_posts" are the same, you can do this in any php file :
+* `echo do_shortcode( '[manual_related_posts]' );` or add directly in any post/page [manual_related_posts]
 
 1. How works the cache system?
-*Do i really have to answer this? Ok, like all other cache system, the first time you open a page, data are stored into a cache system (DB if you do not have a real cache plugin), and when the time (1 day by default) is over, a new cache replace the old one.
-*The cache is changed when you change the options or when you add a manual post.
-*If you want to test without cache, set "0" days.
+* Do i really have to answer this? Ok, like all other cache system, the first time you open a page, data are stored into a cache system (DB if you do not have a real cache plugin), and when the time (1 day by default) is over, a new cache replace the old one.
+* The cache is changed when you change the options or when you add a manual post.
+* If you want to test without cache, set "0" days.
 
 == Screenshots ==
 
@@ -55,8 +59,24 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8 =
+* 30 apr 2014
+* Support WP 3.9 (req. 3.5 min)
+* Support WPML
+* Too long title are now cut (10 words max)
+* No more php notices
+* No more deprecated functions
+* New default thumb
+* Better "get first image" function
+* Popup fix
+* Mobile version fix
+* Thumbnails from shortcode possible
+* Two side relation (automatic!)
+* Less options, more decisions ;)
+* TODO : allow to choose/create a template file instead of just "list/thumb"
+
 = 1.7.17 =
-* 11 dev 2012
+* 11 dec 2012
 * Thumbnails were not displayed, sorry.
 
 = 1.7.16 =

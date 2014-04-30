@@ -1,78 +1,74 @@
 var bawmrpFindPosts;
 (function($){
 	bawmrpFindPosts = {
-		open : function(af_name, af_val) {
-			$('.find-box-search .spinner').hide();
-			var st = document.documentElement.scrollTop || $(document).scrollTop();
+		open: function( af_name, af_val ) {
+			var overlay = $( '.ui-find-overlay' );
+
+			if ( overlay.length === 0 ) {
+				$( 'body' ).append( '<div class="ui-find-overlay"></div>' );
+				bawmrpFindPosts.overlay();
+			}
+
+			overlay.show();
 
 			if ( af_name && af_val ) {
-				$('#affected').attr('name', af_name).val(af_val);
+				$( '#affected' ).attr( 'name', af_name ).val( af_val );
 			}
-			$('#find-posts').show().draggable({
-				handle: '#find-posts-head'
-			}).css({'top':st + 50 + 'px','left':'50%','marginLeft':'-250px'});
 
-			$('#find-posts-input').focus().keyup(function(e){
-				if (e.which == 27) { bawmrpFindPosts.close(); } // close on Escape
+			$( '#find-posts' ).show();
+
+			$('#find-posts-input').focus().keyup( function( event ){
+				if ( event.which == 27 ) {
+					bawmrpFindPosts.close();
+				} // close on Escape
 			});
+
+			// Pull some results up by default
+			bawmrpFindPosts.send();
 
 			return false;
 		},
 
 		close : function() {
-			$('.find-box-search .spinner').hide();
-			$('#find-posts').draggable('destroy').hide();
+			$('#find-posts-response').html('');
+			$('#find-posts').hide();
+			$('.ui-find-overlay').hide();
+			// $('#find-posts').draggable('destroy').hide();
 		},
 
-		send : function() {
-			$pt = '';
-			$('.find-box-search .spinner').show();
+		overlay: function() {
+			$( '.ui-find-overlay' ).on( 'click', function () {
+				bawmrpFindPosts.close();
+			});
+		},
+
+		send: function() {
+			var $pt = '';
 			$('input[name="find-posts-what[]"]:checked').each(function(){
 				$pt += $( this ).val() + ',';
 			});
 			var post = {
-				ps: $('#find-posts-input').val(),
-				action: 'bawmrp_ajax_find_posts',
-				_ajax_nonce: $('#_ajax_nonce').val(),
-				post_type: $pt
-			};
-
-			$.ajax({
-				type : 'POST',
-				url : ajaxurl,
-				data : post,
-				success : function(x) { bawmrpFindPosts.show(x); },
-				error : function(r) { bawmrpFindPosts.error(r); }
-			});				
-		},
-
-		show : function(x) {
-
-			$('.find-box-search .spinner').hide();
-			if ( typeof(x) == 'string' ) {
-				this.error({'responseText': x});
-				return;
-			}
-
-			var r = wpAjax.parseAjaxResponse(x);
-
-			if ( r.errors ) {
-				this.error({'responseText': wpAjax.broken});
-			}
-			r = r.responses[0];
-			$('#find-posts-response').html(r.data);
-		},
-
-		error : function(r) {
-			$('.find-box-search .spinner').hide();
-			var er = r.statusText;
-
-			if ( r.responseText ) {
-				er = r.responseText.replace( /<.[^<>]*?>/g, '' );
-			}
-			if ( er ) {
-				$('#find-posts-response').html(er);
-			}
+					ps: $( '#find-posts-input' ).val(),
+					action: 'bawmrp_ajax_find_posts',
+					_ajax_nonce: $('#_ajax_nonce').val(),
+					post_type: $pt
+				},
+				spinner = $( '.find-box-search .spinner' );
+			spinner.show();
+			$.ajax( ajaxurl, {
+				type: 'POST',
+				data: post,
+				dataType: 'json'
+			}).always( function() {
+				spinner.hide();
+			}).done( function( x ) {
+				if ( ! x ) {
+					$( '#find-posts-response' ).text( x.responseText );
+				}
+				$( '#find-posts-response' ).html( x.data );
+			}).fail( function( x ) {
+				$( '#find-posts-response' ).text( x.responseText );
+			});
 		}
 	};
 

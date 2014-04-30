@@ -9,10 +9,12 @@ function bawmrp_ajax_find_posts()
 
 	check_ajax_referer( 'find-posts' );
 
-	if ( empty( $_POST['ps'] ) )
-		wp_die();
-	$post_types = get_post_types( array( 'public' => true, 'show_ui'=>true ) );
 	$pt = explode( ',', trim( $_POST['post_type'], ',' ) );
+	if ( empty( $_POST['ps'] ) ) {
+		$posttype = get_post_type_object( $pt[0] );
+		wp_die( $posttype->labels->not_found );
+	}
+	$post_types = get_post_types( array( 'public' => true, 'show_ui'=>true ) );
 	$in_array = array_intersect( $pt, $post_types );
 	if ( !empty($_POST['post_type'] ) && !empty( $in_array ) )
 		$what = "'" . implode( "','", $in_array ) . "'";
@@ -20,7 +22,7 @@ function bawmrp_ajax_find_posts()
 		$what = 'post';
 	$s = stripslashes($_POST['ps']);
 	preg_match_all('/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $s, $matches);
-	$search_terms = array_map( '_search_terms_tidy', $matches[0] );
+	$search_terms = array_map( 'trim', $matches[0] );
 
 	$searchand = $search = '';
 	foreach ( (array)$search_terms as $term ) {
@@ -32,7 +34,7 @@ function bawmrp_ajax_find_posts()
 	if ( count($search_terms) > 1 && $search_terms[0] != $s )
 		$search .= " OR ($wpdb->posts.post_title LIKE '%{$term}%') OR ($wpdb->posts.post_content LIKE '%{$term}%')";
 
-	$posts = $wpdb->get_results( "SELECT ID, post_title, post_status, post_date, post_type FROM $wpdb->posts WHERE post_type IN ($what) AND post_status != 'revision' AND ($search) ORDER BY post_date_gmt DESC LIMIT 50" );
+	$posts = $wpdb->get_results( "SELECT ID, post_title, post_status, post_date, post_type FROM $wpdb->posts WHERE post_type IN ($what) AND post_status NOT IN ( 'revision', 'trash' ) AND ($search) ORDER BY post_date_gmt DESC LIMIT 50" );
 
 	if ( !$posts ) {
 		$posttype = get_post_type_object( $pt[0] );
@@ -69,7 +71,7 @@ function bawmrp_ajax_find_posts()
 		$html .= '<td><label for="found-'.$post->ID.'">'.esc_html( $post->post_title ).'</label></td><td>'.esc_html( $posttype ).'</td><td>'.esc_html( $time ).'</td><td>'.esc_html( $stat ).'</td></tr>'."\n\n";
 	}
 	$html .= '</tbody></table>';
-
+	wp_send_json_success( $html );
 	$x = new WP_Ajax_Response();
 	$x->add( array(
 		'what' => 'post',
