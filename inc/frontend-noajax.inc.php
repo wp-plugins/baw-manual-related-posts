@@ -60,7 +60,7 @@ function bawmrp_the_content( $content='' ) {
 			}
 			$head = '<div class="bawmrp"><h3>' . $head_title . '</h3><ul>';
 			do_action( 'bawmrp_first_li' );
-			$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:185px;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
+			$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:auto;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
 			$n = 0;
 			foreach( $ids as $id ) {
 				global $in_bawmrp_loop;
@@ -73,7 +73,7 @@ function bawmrp_the_content( $content='' ) {
 					$class = 'bawmrp_auto';
 				}
 
-				$_content = 'none'; 
+				$_content = ''; 
 				if( isset( $bawmrp_options['display_content'] ) ) {
 					$p = get_post( $id );
 					$_content = '<br />' . apply_filters( 'the_excerpt', $p->post_excerpt ) .'<p>&nbsp;</p>';
