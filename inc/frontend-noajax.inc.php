@@ -42,9 +42,11 @@ function bawmrp_the_content( $content='' ) {
 		$ids_auto = isset( $bawmrp_options['auto_posts'] ) && 'none' != $bawmrp_options['auto_posts'] ? bawmrp_get_related_posts_auto( $post ) : array();
 		$ids = wp_parse_id_list( array_merge( $ids_manual, $ids_auto ) );
 		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-			$head_title = isset( $bawmrp_options['head_titles'][$post->post_type][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] ) && is_string( $bawmrp_options['head_titles'][$post->post_type][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] )? $bawmrp_options['head_titles'][$post->post_type][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] : $head_title;
+			$head_title = isset( $bawmrp_options['head_titles'][ $post->post_type ][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] ) && is_string( $bawmrp_options['head_titles'][ $post->post_type ][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] )? $bawmrp_options['head_titles'][$post->post_type][ bawmrp_wpml_lang_by_code( ICL_LANGUAGE_CODE ) ] : $head_title;
+		} elseif ( isset( $bawmrp_options['head_titles'][ $post->post_type ][ get_locale() ] ) && is_string( $bawmrp_options['head_titles'][ $post->post_type ][ get_locale() ] ) ){
+			$head_title = $bawmrp_options['head_titles'][ $post->post_type ][ get_locale() ];
 		} else {
-			$head_title = isset( $bawmrp_options['head_titles'][$post->post_type] ) && is_string( $bawmrp_options['head_titles'][$post->post_type] )? $bawmrp_options['head_titles'][$post->post_type] : $head_title;
+			$head_title = isset( $bawmrp_options['head_titles'][ $post->post_type ] ) && is_string( $bawmrp_options['head_titles'][ $post->post_type ] ) ? $bawmrp_options['head_titles'][ $post->post_type ] : $head_title;
 		}
 		if ( ! empty( $ids ) && is_array( $ids ) && isset( $ids[0] ) && $ids[0] != 0 ) {
 			$ids = wp_parse_id_list( $ids );
