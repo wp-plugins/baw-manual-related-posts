@@ -59,10 +59,10 @@ function bawmrp_get_related_posts_auto( $post ) {
 			);
 			// auto posts by tags
 			if ( 'none' != $bawmrp_options['auto_posts'] ) {
-				$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
-				if ( $tags ) {
-					$args['tag__in'] = $tags;
-				}
+				// $tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
+				// if ( $tags ) {
+				// 	$args['tag__in'] = $tags;
+				// }
 				$cat = get_the_category( $post->ID );
 				$cat_ids = wp_list_pluck( $cat, 'term_id' );
 				$args['category'] = implode( ',', $cat_ids );

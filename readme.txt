@@ -59,6 +59,12 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8.1 =
+* 02 may 2014
+* If no posts are found, nothing is displayed, not even the old "No Posts Found" message
+* auto posts are now based on cat only, not tags
+* title per CPT are back, sorry
+
 = 1.8 =
 * 30 apr 2014
 * Support WP 3.9 (req. 3.5 min)

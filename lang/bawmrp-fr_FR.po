@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 03:03+0100\n"
+"POT-Creation-Date: 2014-05-02 10:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julio Potier <julio@boiteaweb.fr>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Need a faster website?"
 msgstr "Besoin d'un site plus rapide ?"
 
-#: ../inc/about.inc.php:23 ../inc/backend-noajax.inc.php:151
+#: ../inc/about.inc.php:23 ../inc/backend-noajax.inc.php:150
 msgid "About"
 msgstr "À propos"
 
@@ -94,53 +94,49 @@ msgstr ""
 msgid "Clear List"
 msgstr "Effacer la liste"
 
-#: ../inc/backend-noajax.inc.php:120
+#: ../inc/backend-noajax.inc.php:119
 msgid "Settings"
 msgstr "Réglages"
 
-#: ../inc/backend-noajax.inc.php:141
+#: ../inc/backend-noajax.inc.php:140
 msgid "General"
 msgstr "Général"
 
-#: ../inc/backend-noajax.inc.php:142
+#: ../inc/backend-noajax.inc.php:141
 msgid "How many posts maximum"
 msgstr "Combien d'article maximum"
 
-#: ../inc/backend-noajax.inc.php:143
+#: ../inc/backend-noajax.inc.php:142
 msgid "Select post types"
 msgstr "Selection des types de contenu"
 
-#: ../inc/backend-noajax.inc.php:144
+#: ../inc/backend-noajax.inc.php:143
 msgid "Randomize related posts"
 msgstr "Articles en relation aléatoires"
 
-#: ../inc/backend-noajax.inc.php:145
+#: ../inc/backend-noajax.inc.php:144
 msgid "Display"
 msgstr "Affichage"
 
-#: ../inc/backend-noajax.inc.php:146
+#: ../inc/backend-noajax.inc.php:145
 msgid "Display related posts in post content"
 msgstr "Afficher les articles relatifs dans le contenu de l'article"
 
-#: ../inc/backend-noajax.inc.php:147
+#: ../inc/backend-noajax.inc.php:146
 msgid "Display mode"
 msgstr "Mode d'affichage"
 
-#: ../inc/backend-noajax.inc.php:148
+#: ../inc/backend-noajax.inc.php:147
 msgid "Display content?"
 msgstr "Afficher le contenu ?"
 
-#: ../inc/backend-noajax.inc.php:149
+#: ../inc/backend-noajax.inc.php:148
 msgid "Auto posts"
 msgstr "Articles auto"
 
-#: ../inc/backend-noajax.inc.php:150
+#: ../inc/backend-noajax.inc.php:149
 msgid "Use auto related posts?"
 msgstr "Chercher des articles relatifs automatiquement ?"
-
-#: ../inc/frontend-noajax.inc.php:36 ../inc/frontend-noajax.inc.php:109
-msgid "No posts found."
-msgstr "Aucun article en relation trouvé !"
 
 #: ../inc/setting_fields.inc.php:9
 msgid "Will be displayed at bottom of content."
@@ -170,13 +166,12 @@ msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
 #: ../inc/setting_fields.inc.php:63
-msgid "Use tags and categories to find related posts."
-msgstr ""
-"Utiliser les mots-clé et catégories pour trouver des articles en relation."
+msgid "Use categories to find related posts."
+msgstr "Utiliser les catégories pour trouver des articles en relation."
 
 #: ../inc/setting_fields.inc.php:71
 msgid "Including manual and auto related posts. (0 = No limit)"
-msgstr "Inclus les articles manuels et auto.(0 = Pas de limite)"
+msgstr "Inclus les articles manuels et auto. (0 = Pas de limite)"
 
 #: ../inc/setting_fields.inc.php:79
 msgid "You can randomize the posts request."
@@ -197,6 +192,9 @@ msgstr "Mode en liste."
 #: ../inc/setting_fields.inc.php:99
 msgid "Thumb mode."
 msgstr "Mode en miniatures."
+
+#~ msgid "No posts found."
+#~ msgstr "Aucun article en relation trouvé !"
 
 #~ msgid "Caching data"
 #~ msgstr "Cache des données"

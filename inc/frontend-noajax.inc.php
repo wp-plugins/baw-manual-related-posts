@@ -32,10 +32,7 @@ function bawmrp_the_content( $content='' ) {
 		$transient_name = time().'bawmrp_' . $post->ID . '_' . substr( md5( serialize( $ids_manual ) . serialize( $bawmrp_options ) . get_permalink( $post->ID ) . $lang ), 0, 12 );
 		if ( $contents = get_transient( $transient_name ) ) {
 			extract( $contents );
-			if ( empty( $list ) || ! is_array( $list ) ) {
-				$list = array( '<ul><li>' . __( 'No posts found.' ) . '</li></ul>' );
-			}
-			if ( isset( $bawmrp_options['random_posts'] ) ) {
+			if ( ! empty( $list ) && is_array( $list ) && isset( $bawmrp_options['random_posts'] ) ) {
 				shuffle( $list );
 			}
 			$final = $content . $head . @implode( "\n", $list ) . $foot;
@@ -109,9 +106,9 @@ function bawmrp_the_content( $content='' ) {
 			$final = $content . $head . implode( "\n", $list ) . $foot;
 			$content = apply_filters( 'bawmrp_posts_content', $final, $content, $head, $list, $foot );
 		} else {
-			$head = '<div class="bawmrp"><h3>' . esc_html( $head_title ) . '</h3>';
-			$list = '<ul><li>' . __( 'No posts found.' ) . '</li></ul>';
-			$foot = '</div>';
+			$head = '';//<div class="bawmrp"><h3>' . esc_html( $head_title ) . '</h3>';
+			$list = '';//<ul><li>' . __( 'No posts found.' ) . '</li></ul>';
+			$foot = '';//</div>';
 			$final = $content . $head . $list . $foot;
 			$content = apply_filters( 'bawmrp_posts_content', $final, $content, $head, $list, $foot );
 		}

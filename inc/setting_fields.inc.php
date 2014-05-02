@@ -39,7 +39,7 @@ function bawmrp_field_post_types()
 		if ( isset( $sitepress ) ) {
 			$langs = $sitepress->get_languages( "en' AND active='1" );
 		} else {
-			$langs = array( get_locale() );
+			$langs = array( array( 'default_locale'=>get_locale() ) );
 		}
 		foreach ( $langs as $_lang ) {
 			if ( isset( $bawmrp_options['head_titles'][ $cpt->name ][ $_lang['default_locale'] ] ) ) {
@@ -60,7 +60,7 @@ function bawmrp_field_auto_posts()
 {
 	$bawmrp_options = get_option( 'bawmrp' );
 ?>
-	<label><input type="checkbox" name="bawmrp[auto_posts]" value="both" <?php checked( isset( $bawmrp_options['auto_posts'] ) && $bawmrp_options['auto_posts'] == 'both', true ); ?> /> <em><?php _e( 'Use tags and categories to find related posts.', 'bawmrp' ); ?></em></label>
+	<label><input type="checkbox" name="bawmrp[auto_posts]" value="both" <?php checked( isset( $bawmrp_options['auto_posts'] ) && $bawmrp_options['auto_posts'] == 'both', true ); ?> /> <em><?php _e( 'Use categories to find related posts.', 'bawmrp' ); ?></em></label>
 <?php
 }
 
