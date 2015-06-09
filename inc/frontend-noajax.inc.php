@@ -28,8 +28,8 @@ function bawmrp_the_content( $content='' ) {
 	if ( ( is_home() && $bawmrp_options['in_homepage']=='on' && in_the_loop() ) ||
 		is_singular( $bawmrp_options['post_types'] ) ) {
 		$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
-		$lang = isset( $_GET['lang'] ) ? $_GET['lang'] : get_locale();
-		$transient_name = time().'bawmrp_' . $post->ID . '_' . substr( md5( serialize( $ids_manual ) . serialize( $bawmrp_options ) . get_permalink( $post->ID ) . $lang ), 0, 12 );
+		$lang = get_locale();
+		$transient_name = apply_filters( 'bawmrp_transient_name', 'bawmrp_' . $post->ID . '_' . $lang, $post->ID );
 		if ( $contents = get_transient( $transient_name ) ) {
 			extract( $contents );
 			if ( ! empty( $list ) && is_array( $list ) && isset( $bawmrp_options['random_posts'] ) ) {

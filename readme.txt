@@ -59,6 +59,11 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8.2 =
+* 09 jun 2015
+* Add filter: bawmrp_transient_name, props Aaron Brazell
+* Fix bug: Transient name was not correct, thanks Aaron Brazell
+
 = 1.8.1 =
 * 02 may 2014
 * If no posts are found, nothing is displayed, not even the old "No Posts Found" message
