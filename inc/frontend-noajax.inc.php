@@ -12,7 +12,7 @@ if ( ! function_exists( 'baw_first_image') ):
 			$first_img = isset( $matches[1][0] ) ? $matches[1][0] : '';
 		}
 		return ! empty( $first_img ) ? $first_img : $default;
-	}	
+	}
 endif;
 
 add_shortcode( 'manual_related_posts', 'bawmrp_the_content' );
@@ -20,9 +20,9 @@ add_shortcode( 'bawmrp', 'bawmrp_the_content' );
 
 add_filter( 'the_content', 'bawmrp_the_content', 9 );
 function bawmrp_the_content( $content='' ) {
-	global $post;
+	global $post, $in_bawmrp_loop;
 	$bawmrp_options = get_option( 'bawmrp' );
-	if ( ! $post || $bawmrp_options['in_content']!='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
+	if ( ! $post || empty($bawmrp_options['in_content']) || $bawmrp_options['in_content']!='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
 		return $content;
 	}
 	if ( ( is_home() && $bawmrp_options['in_homepage']=='on' && in_the_loop() ) ||
@@ -62,7 +62,6 @@ function bawmrp_the_content( $content='' ) {
 			$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:auto;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
 			$n = 0;
 			foreach( $ids as $id ) {
-				global $in_bawmrp_loop;
 				$in_bawmrp_loop = true;
 				if( in_array( $id, $ids_manual ) ) {
 					$class = 'bawmrp_manual';
@@ -72,7 +71,7 @@ function bawmrp_the_content( $content='' ) {
 					$class = 'bawmrp_auto';
 				}
 
-				$_content = ''; 
+				$_content = '';
 				if( isset( $bawmrp_options['display_content'] ) ) {
 					$p = get_post( $id );
 					$_content = '<br />' . apply_filters( 'the_excerpt', $p->post_excerpt ) .'<p>&nbsp;</p>';
@@ -81,8 +80,8 @@ function bawmrp_the_content( $content='' ) {
 				$_content = apply_filters( 'bawmrp_more_content', $_content );
 				if( $bawmrp_options['in_content_mode']=='list' ) {
 					$list[] = '<li class="' . $class . '">' .
-								'<a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . 
-									apply_filters( 'the_title', get_the_title( $id ) ) . 
+								'<a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' .
+									apply_filters( 'the_title', get_the_title( $id ) ) .
 								'</a>' .
 								$_content .
 							'</li>';
@@ -98,9 +97,10 @@ function bawmrp_the_content( $content='' ) {
 				}
 				$list = apply_filters( 'bawmrp_li', $list, ++$n );
 			}
+			$in_bawmrp_loop = false;
 			do_action( 'bawmrp_last_li' );
 			$list = apply_filters( 'bawmrp_list_li', $list );
-			if( $bawmrp_options['in_content_mode']=='list' ) {									
+			if( $bawmrp_options['in_content_mode']=='list' ) {
 				$foot = '</ul></div>';
 			} else {
 				$foot = '</ul></div><div style="clear:both;"></div>';

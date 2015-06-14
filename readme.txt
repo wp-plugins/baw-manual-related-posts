@@ -59,6 +59,10 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8.3 =
+* 15 jun 2015
+* Fix bug: global $in_bawmrp_loop was not set back to false, thanks Greg @Screenfeedfr
+
 = 1.8.2 =
 * 09 jun 2015
 * Add filter: bawmrp_transient_name, props Aaron Brazell
