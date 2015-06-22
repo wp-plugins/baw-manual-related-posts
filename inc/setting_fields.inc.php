@@ -5,6 +5,7 @@ if( !defined( 'ABSPATH' ) )
 function bawmrp_field_in_content()
 {
 	$bawmrp_options = get_option( 'bawmrp' );
+	$bawmrp_options['in_content'] = isset( $bawmrp_options['in_content'] ) ? $bawmrp_options['in_content'] : false;
 ?>
 	<label><input type="checkbox" name="bawmrp[in_content]" <?php checked( $bawmrp_options['in_content'], 'on' ); ?> /> <em><?php _e( 'Will be displayed at bottom of content.', 'bawmrp' ); ?></em></label>
 	<?php if( current_user_can( 'edit_themes' ) ) { ?>
