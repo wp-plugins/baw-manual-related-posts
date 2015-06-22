@@ -61,8 +61,8 @@ function bawmrp_the_content( $content='' ) {
 			do_action( 'bawmrp_first_li' );
 			$style = apply_filters( 'bawmrp_li_style', 'float:left;width:120px;height:auto;overflow:hidden;list-style:none;border-right: 1px solid #ccc;text-align:center;padding:0px 5px;' );
 			$n = 0;
+			$in_bawmrp_loop = true;
 			foreach( $ids as $id ) {
-				$in_bawmrp_loop = true;
 				if( in_array( $id, $ids_manual ) ) {
 					$class = 'bawmrp_manual';
 				} elseif( in_array( $id, get_option( 'sticky_posts' ) ) ) {
@@ -97,7 +97,6 @@ function bawmrp_the_content( $content='' ) {
 				}
 				$list = apply_filters( 'bawmrp_li', $list, ++$n );
 			}
-			$in_bawmrp_loop = false;
 			do_action( 'bawmrp_last_li' );
 			$list = apply_filters( 'bawmrp_list_li', $list );
 			if( $bawmrp_options['in_content_mode']=='list' ) {
@@ -118,6 +117,7 @@ function bawmrp_the_content( $content='' ) {
 	if ( ! empty( $list ) ) {
 		set_transient( $transient_name, array( 'head' => $head, 'list' => $list, 'foot' => $foot ) );
 	}
+	$in_bawmrp_loop = false;
 	return $content;
 }
 
