@@ -59,6 +59,10 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8.5 =
+* 16 jul 2015
+* Fix bug: Posts were not displayed anymore, again
+
 = 1.8.4 =
 * 22 jun 2015
 * Fix bug: Posts were not displayed anymore

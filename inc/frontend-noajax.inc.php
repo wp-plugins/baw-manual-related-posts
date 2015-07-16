@@ -22,14 +22,14 @@ add_filter( 'the_content', 'bawmrp_the_content', 9 );
 function bawmrp_the_content( $content='' ) {
 	global $post, $in_bawmrp_loop;
 	$bawmrp_options = get_option( 'bawmrp' );
-	if ( ! $post || empty($bawmrp_options['in_content']) || $bawmrp_options['in_content']!='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
+	if ( ! $post || $bawmrp_options['in_content']!='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
 		return $content;
 	}
 	if ( ( is_home() && $bawmrp_options['in_homepage']=='on' && in_the_loop() ) ||
 		is_singular( $bawmrp_options['post_types'] ) ) {
 		$ids_manual = wp_parse_id_list( bawmrp_get_related_posts( $post->ID ) );
-		$lang = get_locale();
-		$transient_name = apply_filters( 'bawmrp_transient_name', 'bawmrp_' . $post->ID . '_' . $lang, $post->ID );
+		$lang = isset( $_GET['lang'] ) ? $_GET['lang'] : get_locale();
+		$transient_name = apply_filters( 'bawmrp_transient_name', 'bawmrp_' . $post->ID . '_' . substr( md5( serialize( $ids_manual ) . serialize( $bawmrp_options ) . get_permalink( $post->ID ) . $lang ), 0, 12 ) );
 		if ( $contents = get_transient( $transient_name ) ) {
 			extract( $contents );
 			if ( ! empty( $list ) && is_array( $list ) && isset( $bawmrp_options['random_posts'] ) ) {
