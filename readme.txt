@@ -27,11 +27,17 @@ Check the FAQ and Support if needed ;)
 
 1. Is there some filters?
 * Yes, "bawmrp_li_style" can be used to overwrite the custom style on LI for front end display in thumb mode
+
 * The filter "bawmrp_list_li" contains an array of all entries as LI tags. You can, for example, keep all-1 and add your Ad.
+
 * The filter "bawmrp_posts_content" contains all vars to create the list, you can hack it now.
+
 * The filter "bawmrp_more_content" contains the excerpt or content (if you choose to displays it) with a new line (BR tag) on front, you can hack this.
+
 * The filter "bawmrp_no_thumb" can be used to change the default "no thumb" picture to display in "thumb mode"
+
 * The filter "bawmrp_thumb_size" is an array containing thumb size, 100x100 is default.
+
 * The WP filter "the_title" can be target in the related loop using the globale $var "$in_bawmrp_loop" set to TRUE if in the loop, not set if not.
 
 1. Is there any actions?
@@ -58,6 +64,12 @@ Check the FAQ and Support if needed ;)
 1. Front-end thumb view (french demo)
 
 == Changelog ==
+
+= 1.8.6 =
+* 04 sep 2015
+* Fix bug: $wpdb->esc_like()
+* Fix notices
+* Remove the annoying and non manual "both direction", maybe reintroduce using an option, let's see that later :)
 
 = 1.8.5 =
 * 16 jul 2015

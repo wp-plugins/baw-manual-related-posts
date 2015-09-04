@@ -147,8 +147,6 @@ function bawmrp_settings_page()
 		add_settings_field( 'bawmrp_field_display_content', __( 'Display content?', 'bawmrp' ), 'bawmrp_field_display_content', 'bawmrp_settings4', 'bawmrp_settings_page' );
 	add_settings_section( 'bawmrp_settings_page', __( 'Auto posts', 'bawmrp' ), 'bawmrp_so_ironic', 'bawmrp_settings2' );
 		add_settings_field( 'bawmrp_field_auto_posts', __( 'Use auto related posts?', 'bawmrp' ), 'bawmrp_field_auto_posts', 'bawmrp_settings2', 'bawmrp_settings_page' );
-	add_settings_section( 'bawmrp_settings_page', __( 'About' ), '__return_false', 'bawmrp_settings3' );
-		add_settings_field( 'bawmrp_field_about', '', create_function( '', "include( dirname( __FILE__ ) . '/about.inc.php' );" ), 'bawmrp_settings3', 'bawmrp_settings_page' );
 
 include( dirname( __FILE__ ) . '/setting_fields.inc.php' );
 ?>
@@ -165,7 +163,6 @@ include( dirname( __FILE__ ) . '/setting_fields.inc.php' );
 		<div class="tabs"><?php do_settings_sections( 'bawmrp_settings4' ); ?></div>
 		<div class="tabs"><?php do_settings_sections( 'bawmrp_settings2' ); ?></div>
 		<?php submit_button(); ?>
-		<div class="tabs"><?php do_settings_sections( 'bawmrp_settings3' ); ?></div>
 	</form>
 	<div>
 <?php
@@ -183,7 +180,7 @@ function bawmrp_purge_transient( $a='', $b='', $c='' ) {
 		case 'clean_post_cache': 
 		case 'save_post': $post_ID = $b->ID; break;
 		case 'transition_post_status': $post_ID = $c->ID; break;
-		case 'deleted_post': $post_ID = $a->ID; break;
+		case 'deleted_post': $post_ID = $a; break;
 		default: $post_ID = ''; break;
 	}
 	$wpdb->query( "DELETE from $wpdb->options WHERE option_name LIKE '%bawmrp_{$post_ID}%'" );

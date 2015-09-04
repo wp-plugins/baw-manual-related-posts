@@ -22,7 +22,7 @@ add_filter( 'the_content', 'bawmrp_the_content', 9 );
 function bawmrp_the_content( $content='' ) {
 	global $post, $in_bawmrp_loop;
 	$bawmrp_options = get_option( 'bawmrp' );
-	if ( ! $post || $bawmrp_options['in_content']!='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
+	if ( ! $post || ! isset( $bawmrp_options['in_content'] ) || $bawmrp_options['in_content'] !='on' && $content!='' || apply_filters( 'stop_bawmrp', false ) ) {
 		return $content;
 	}
 	if ( ( is_home() && $bawmrp_options['in_homepage']=='on' && in_the_loop() ) ||
@@ -81,7 +81,7 @@ function bawmrp_the_content( $content='' ) {
 				if( $bawmrp_options['in_content_mode']=='list' ) {
 					$list[] = '<li class="' . $class . '">' .
 								'<a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' .
-									apply_filters( 'the_title', get_the_title( $id ) ) .
+									get_the_title( $id ) .
 								'</a>' .
 								$_content .
 							'</li>';
@@ -93,7 +93,7 @@ function bawmrp_the_content( $content='' ) {
 					} else {
 						$thumb = '<img src="' . baw_first_image( isset( $bawmrp_options['first_image'] ) && $bawmrp_options['first_image']=='on' ? $id : null, $no_thumb ) . '" height="' . $thumb_size[0] . '" width="' . $thumb_size[1] . '" />';
 					}
-					$list[] = '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . apply_filters( 'the_title', get_the_title( $id ) ) . '</a></li>';
+					$list[] = '<li style="' . esc_attr( $style ) . '" class="' . $class . '"><a href="' . esc_url( apply_filters( 'the_permalink', get_permalink( $id ) ) ) . '">' . $thumb . '<br />' . get_the_title( $id ) . '</a></li>';
 				}
 				$list = apply_filters( 'bawmrp_li', $list, ++$n );
 			}

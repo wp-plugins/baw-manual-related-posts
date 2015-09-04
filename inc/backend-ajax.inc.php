@@ -26,7 +26,7 @@ function bawmrp_ajax_find_posts()
 
 	$searchand = $search = '';
 	foreach ( (array)$search_terms as $term ) {
-		$term = esc_sql( $wpdb::esc_like( $term ) );
+		$term = esc_sql( $wpdb->esc_like( $term ) );
 		$search .= "{$searchand}(($wpdb->posts.post_title LIKE '%{$term}%') OR ($wpdb->posts.post_content LIKE '%{$term}%'))";
 		$searchand = ' AND ';
 	}

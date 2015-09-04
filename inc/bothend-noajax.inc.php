@@ -28,6 +28,7 @@ function bawmrp_get_related_posts( $post_id, $only_published=true ) {
 	} else {
 		$ids = ! empty( $ids ) ? implode( ',', wp_parse_id_list( $ids ) ) : array();
 	}
+	/*
 	$ids_bonus = $wpdb->get_row( "SELECT group_concat(post_id) as ids FROM $wpdb->postmeta WHERE post_id != {$post_id} AND meta_key='_yyarpp' AND concat(',',meta_value,',') LIKE '%,{$post_id},%'" );
 	if ( ! is_admin() && reset( $ids_bonus ) ) {
 		if ( ! is_array( $ids ) ) {
@@ -36,6 +37,7 @@ function bawmrp_get_related_posts( $post_id, $only_published=true ) {
 			$ids[] = reset( $ids_bonus );
 		}
 	}
+	*/
 	return $ids;
 }
 
