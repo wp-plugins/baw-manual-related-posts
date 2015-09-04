@@ -171,8 +171,8 @@ include( dirname( __FILE__ ) . '/setting_fields.inc.php' );
 add_action( 'save_post', 'bawmrp_purge_transient', 10, 2 );
 add_action( 'deleted_post', 'bawmrp_purge_transient', 10, 1 );
 add_action( 'clean_post_cache', 'bawmrp_purge_transient', 10, 2 );
-add_action( 'option_permalink_structure', 'bawmrp_purge_transient' );
-add_action( 'option_bawmrp', 'bawmrp_purge_transient' );
+add_action( 'update_option_permalink_structure', 'bawmrp_purge_transient' );
+add_action( 'update_option_bawmrp', 'bawmrp_purge_transient' );
 add_action( 'transition_post_status', 'bawmrp_purge_transient', 10, 3 );
 function bawmrp_purge_transient( $a='', $b='', $c='' ) {
 	global $wpdb;

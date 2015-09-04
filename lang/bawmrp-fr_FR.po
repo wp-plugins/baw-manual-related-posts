@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BAW Manual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 10:18+0100\n"
+"POT-Creation-Date: 2015-09-04 02:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julio Potier <julio@boiteaweb.fr>\n"
 "Language-Team: Juliobox <juliobosk@gmail.com>\n"
@@ -13,20 +13,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n;esc_attr_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SearchPath-0: ..\n"
-
-#: ../inc/about.inc.php:8
-msgid "Need a faster website?"
-msgstr "Besoin d'un site plus rapide ?"
-
-#: ../inc/about.inc.php:23 ../inc/backend-noajax.inc.php:150
-msgid "About"
-msgstr "À propos"
-
-#: ../inc/about.inc.php:33
-msgid "Help"
-msgstr "Aide"
 
 #: ../inc/backend-ajax.inc.php:44
 msgid "Title"
@@ -138,11 +126,11 @@ msgstr "Articles auto"
 msgid "Use auto related posts?"
 msgstr "Chercher des articles relatifs automatiquement ?"
 
-#: ../inc/setting_fields.inc.php:9
+#: ../inc/setting_fields.inc.php:10
 msgid "Will be displayed at bottom of content."
 msgstr "Sera affiché sous le contenu."
 
-#: ../inc/setting_fields.inc.php:12
+#: ../inc/setting_fields.inc.php:13
 msgid ""
 "You can also use <code>&lt;?php echo "
 "do_shortcode( '[manual_related_posts]' ); ?&gt</code> to pull the list out."
@@ -150,48 +138,57 @@ msgstr ""
 "Vous pouvez aussi utiliser <code>&lt;?php echo "
 "do_shortcode( '[manual_related_posts]' ); ?&gt</code> pour afficher la liste."
 
-#: ../inc/setting_fields.inc.php:19
+#: ../inc/setting_fields.inc.php:20
 msgid "So ironic ... auto related posts in manual related posts ;)"
 msgstr ""
 "Quelle ironie ... des articles en relations automatisés dans les articles en "
 "relation manuels ;)"
 
-#: ../inc/setting_fields.inc.php:38
+#: ../inc/setting_fields.inc.php:39
 #, php-format
 msgid "Front-end title for %s%s"
 msgstr "Titre sur le site pour les %s%s"
 
-#: ../inc/setting_fields.inc.php:50
+#: ../inc/setting_fields.inc.php:51
 msgid "You may also like:"
 msgstr "Vous aimerez aussi :"
 
-#: ../inc/setting_fields.inc.php:63
+#: ../inc/setting_fields.inc.php:64
 msgid "Use categories to find related posts."
 msgstr "Utiliser les catégories pour trouver des articles en relation."
 
-#: ../inc/setting_fields.inc.php:71
+#: ../inc/setting_fields.inc.php:72
 msgid "Including manual and auto related posts. (0 = No limit)"
 msgstr "Inclus les articles manuels et auto. (0 = Pas de limite)"
 
-#: ../inc/setting_fields.inc.php:79
+#: ../inc/setting_fields.inc.php:80
 msgid "You can randomize the posts request."
 msgstr "Vous pouvez rendre aléatoire la requête sur les articles."
 
-#: ../inc/setting_fields.inc.php:80
+#: ../inc/setting_fields.inc.php:81
 msgid "You can randomize the display for posts order."
 msgstr "Vous pouvez afficher les articles dans un ordre aléatoire."
 
-#: ../inc/setting_fields.inc.php:88
+#: ../inc/setting_fields.inc.php:89
 msgid "Print the post excerpt too."
 msgstr "Afficher le résumé aussi."
 
-#: ../inc/setting_fields.inc.php:97
+#: ../inc/setting_fields.inc.php:98
 msgid "List mode."
 msgstr "Mode en liste."
 
-#: ../inc/setting_fields.inc.php:99
+#: ../inc/setting_fields.inc.php:100
 msgid "Thumb mode."
 msgstr "Mode en miniatures."
+
+#~ msgid "Need a faster website?"
+#~ msgstr "Besoin d'un site plus rapide ?"
+
+#~ msgid "About"
+#~ msgstr "À propos"
+
+#~ msgid "Help"
+#~ msgstr "Aide"
 
 #~ msgid "No posts found."
 #~ msgstr "Aucun article en relation trouvé !"
