@@ -65,6 +65,10 @@ Check the FAQ and Support if needed ;)
 
 == Changelog ==
 
+= 1.8.7 =
+* 05 sep 2015
+* Fix bug https://wordpress.org/support/topic/lost-related-posts-after-upgrade-186
+
 = 1.8.6 =
 * 04 sep 2015
 * Fix bug: $wpdb->esc_like()
